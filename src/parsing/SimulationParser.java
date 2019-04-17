@@ -1,8 +1,9 @@
 package parsing;
 import java.io.FileReader;
 
-import org.xml.sax.InputSource;
-import org.xml.sax.helpers.DefaultHandler;
+import javax.xml.parsers.*; // SAX and DOM parsers
+import org.xml.sax.*; // Generic API for SAX
+import org.xml.sax.helpers.*; // Handlers
 
 public class SimulationParser extends DefaultHandler {
 	
