@@ -1,12 +1,26 @@
 package antcolony;
 
+import graph.Edge;
 import pec.Event;
 
-public class evaporate extends Event{
+public class Evaporate extends Event{
 
-	public evaporate(double timestamp) {
+	Edge edge;
+	double pheromone;
+
+
+	public Evaporate(double timestamp, Edge edge, double pheromone) {
 		super(timestamp);
-		// TODO Auto-generated constructor stub
+		this.edge = edge;
+		this.pheromone = pheromone;
+	}
+	
+	@Override
+	public void executeEvent() {
+		
+		edge.updatePaylod(pheromone + edge.getPayload() );
+		
 	}
 
 }
+
