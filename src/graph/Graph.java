@@ -2,29 +2,79 @@ package graph;
 
 import java.util.LinkedList;
 
-public class Graph<T> {
+public class Graph {
+	
+	private Node[] graph;
+	private int nNodes;
+	private LinkedList<Edge> graphEdges;
+	private int[] nEdge;
 	
 	
-	LinkedList<Node<T>> graph;
-	int size;
+	public Graph(int size) {
+		super();
+		this.graph = new Node[size];
+		
+		for (int i = 0; i< size;i++) {
+			graph[i] = new Node(i);
+		}
+		
+		this.nNodes = size;
+		this.graphEdges = new LinkedList<Edge>();
+		this.nEdge = new int[size+1];
+	}
 
+	public void buildGraph() {
 
-	public void add_node(int id, T payload) {
-		graph.add(new Node<T>(id, payload));
-		size++;
+		int i;
+		// will store for each edge in the list the nodes corresponding to it
+		int[] aux;
+		// auxiliary iterator for the insertion of the edges in the adjacency array
+		int[] it = new int[nNodes];
+		Edge[][] adj= new Edge[nNodes][];
+		// creates adjacency arrays to insert inside nodes
+		for (i = 0; i < nNodes; i++) {
+			adj[i] = new Edge[nEdge[i]];
+		}
+		// builds adjacency array
+		for(Edge edge : graphEdges)
+	      {
+	    	  aux = edge.getNodes();
+	    	  adj[aux[0]][it[aux[0]]] = edge;
+	    	  adj[aux[1]][it[aux[0]]] = edge ;
+	      }
+		// insert inside all nodes
+		for (i = 0; i < nNodes ; i++) {
+			
+			graph[i].addAdjacency(adj[i]);
+		}
 	}
 	
-	public Node<T> remove_node(int id) {
-		// TODO: Stub, need to iterate until finding id
-		if (size == 0)
-			return null;
-		return graph.remove(id);
+	public void addEdge(int node1, int node2, double weight) {
+		
+		graphEdges.add(new Edge(node1, node2, weight));
+		// updates edge counter
+		nEdge[node1]++;
+		nEdge[node2]++;
+		nEdge[0]++;
 	}
-
 	
+	public int getSizeNodes() {
+
+		return nNodes;
+	}
+	
+	public int getSizeEdges() {
+		return nEdge[0];
+	}
+	
+	public Node getNode(int id) {
+
+		return graph[id];
+	}
 	@Override
 	public String toString() {
 		return "Graph [graph=" + graph + "]";
 	}
 	
 }
+

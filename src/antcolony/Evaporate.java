@@ -23,4 +23,3 @@ public class Evaporate extends Event{
 	}
 
 }
-
