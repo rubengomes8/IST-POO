@@ -1,40 +1,56 @@
 package graph;
 
-import java.util.LinkedList;
 
-public class Node<T> {
+public class Node {
 	
-	LinkedList<Edge> adjacent;
-	int id;
-	int size;
-	T payload;
+	private Edge[] adjacent;
+	private int id;
+	private int nAdj;
+
 	
-	Node(int id, T payload) {
-		super();
+	public Node(int id) {
+		super();	
 		this.id = id;
-		this.payload = payload;
 	}
 	
-	void insert_edge(Edge edge) {
-		adjacent.add(edge);
-		size++;
+	public double getPayload(int adj) {
+		for (int i = 0; i < nAdj ; i++) {
+			if (adjacent[i].isEnd(adj))
+				return adjacent[i].getPayload();
+		}
+		return -1;
 	}
 	
-	Edge remove_edge(int edge) {
-		// TODO: Stub, need to iterate until finding id
-		if (size == 0)
-			return null;
-		size--;
-		return adjacent.remove(edge);
+	public void updateEdgePayload(int adj, double payload) {
+		for (int i = 0; i < nAdj ; i++) {
+			if (adjacent[i].isEnd(adj))
+				adjacent[i].updatePaylod(payload);
+		}
+		System.out.println("Edge doesn't exist!");
+		System.exit(-1);
 	}
 	
-	
-	void insert_payload(T load) {
-		this.payload = load;
+	public int getID() {
+		return id;
 	}
 	
-	int (){
-		return size;
+	public void addAdjacency(Edge[] adj) {
+		this.adjacent = adj;
 	}
-
+	
+	public Edge[] getAdjacents() {
+		
+		return adjacent;
+	}
+	
+	public double getWeight(int adjacent) {
+		
+		for (int i = 0; i < nAdj ; i++) {
+			if (this.adjacent[i].isEnd(adjacent))
+					return this.adjacent[i].getWeight();
+		}
+		return -1;
+	}
+	
 }
+
