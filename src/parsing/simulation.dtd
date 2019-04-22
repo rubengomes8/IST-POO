@@ -1,0 +1,48 @@
+
+<!DOCTYPE SIMULATION [
+
+<!ELEMENT simulation (graph+,events+)>
+
+<!ATTLIST simulation 
+	finalinst 	CDATA 	#REQUIRED
+	antcolsize 	CDATA 	#REQUIRED
+	plevel 		CDATA 	#REQUIRED
+>
+
+<!ELEMENT graph (node+)>
+
+<!ATTLIST graph 
+	nbnodes 	CDATA 	#REQUIRED
+	nestnode 	CDATA 	#REQUIRED
+>
+
+<!ELEMENT node (#PCDATA)>
+
+<!ATTLIST node nodeidx CDATA #REQUIRED>
+
+
+<!ELEMENT weight (#PCDATA)>
+
+<!ATTLIST weight targetnode CDATA #REQUIRED>
+
+
+
+<!ELEMENT events (move+,evaporation+)>
+
+<!ELEMENT move (#PCDATA)>
+
+<!ELEMENT evaporation (#PCDATA)>
+
+
+<!ATTLIST move 
+	alpha 	CDATA 	#REQUIRED
+	beta 	CDATA 	#REQUIRED
+	delta 	CDATA 	#REQUIRED
+>
+
+<!ATTLIST evaporation 
+	eta 	CDATA 	#REQUIRED
+	rho 	CDATA 	#REQUIRED
+>
+
+]>
