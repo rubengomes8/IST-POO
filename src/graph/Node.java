@@ -1,5 +1,6 @@
 package graph;
 
+import java.util.Arrays;
 
 public class Node {
 	
@@ -51,6 +52,13 @@ public class Node {
 		}
 		return -1;
 	}
+
+	@Override
+	public String toString() {
+		return "Node [adjacent=" + Arrays.toString(adjacent) + ", id=" + id + ", nAdj=" + nAdj + "]";
+	}
+	
+	
 	
 }
 

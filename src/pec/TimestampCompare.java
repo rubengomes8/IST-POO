@@ -2,7 +2,7 @@ package pec;
 
 import java.util.Comparator;
 
-class Timestamp_compare implements Comparator<Event> {
+class TimestampCompare implements Comparator<Event> {
 	
 
 	@Override
@@ -16,4 +16,3 @@ class Timestamp_compare implements Comparator<Event> {
 			return 0;
 	} 
 }
-

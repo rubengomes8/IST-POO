@@ -1,4 +1,4 @@
-package antcolony;
+package simulation;
 
 import graph.Path;
 
@@ -14,4 +14,3 @@ public class Ant {
 	}
 		
 }
-

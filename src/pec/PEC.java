@@ -17,7 +17,7 @@ public class PEC {
 
 	public PEC() {
 		super();
-		this.eventqueue = new PriorityQueue<Event>(new Timestamp_compare());
+		this.eventqueue = new PriorityQueue<Event>(new TimestampCompare());
 	}
 	
 	

@@ -16,8 +16,7 @@ public class Edge {
 	}	
 	
 	public int[] getNodes() {
-		int[] aux = new int[2];
-		
+		int[] aux = new int[2];		
 		aux[0] = node1;
 		aux[1] = node2;
 		return aux;
@@ -39,5 +38,12 @@ public class Edge {
 	public void updatePaylod(double payload) {
 		this.payload = payload;
 	}
+
+	@Override
+	public String toString() {
+		return "Edge [node1=" + node1 + ", node2=" + node2 + ", weight=" + weight + ", payload=" + payload + "]";
+	}
+	
+	
 
 }
