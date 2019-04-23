@@ -49,6 +49,7 @@ public class Graph {
 		// insert inside all nodes
 		for (int i = 0; i < nNodes ; i++) {			
 			graph[i].addAdjacency(adj[i]);
+			graph[i].setnAdj(adj[i].length);
 		}
 	}
 	
