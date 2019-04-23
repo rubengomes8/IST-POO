@@ -37,11 +37,14 @@ public class Graph {
 		}
 		// builds adjacency array
 		for(Edge edge : graphEdges)
-	      {
-	    	  aux = edge.getNodes();
-	    	  adj[aux[0]][it[aux[0]]] = edge;
-	    	  adj[aux[1]][it[aux[0]]] = edge ;
-	      }
+	        {
+		    aux = edge.getNodes();
+		    adj[aux[0]][it[aux[0]]] = edge;
+		    adj[aux[1]][it[aux[1]]] = edge;
+			it[aux[0]]++;
+			it[aux[1]]++;
+
+	        }
 		// insert inside all nodes
 		for (i = 0; i < nNodes ; i++) {
 			
