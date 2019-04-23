@@ -15,7 +15,7 @@ public class Graph {
 		this.graph = new Node[size];
 		
 		for (int i = 0; i< size;i++) {
-			graph[i] = new Node(i);
+			graph[i] = new Node(i+1);
 		}
 		
 		this.nNodes = size;
@@ -39,10 +39,10 @@ public class Graph {
 		for(Edge edge : graphEdges)
 	        {
 		    aux = edge.getNodes();
-		    adj[aux[0]][it[aux[0]]] = edge;
-		    adj[aux[1]][it[aux[1]]] = edge;
-			it[aux[0]]++;
-			it[aux[1]]++;
+		    adj[aux[0]-1][it[aux[0]-1]] = edge;
+		    adj[aux[1]-1][it[aux[1]-1]] = edge;
+			it[aux[0]-1]++;
+			it[aux[1]-1]++;
 
 	        }
 		// insert inside all nodes
@@ -72,7 +72,7 @@ public class Graph {
 	
 	public Node getNode(int id) {
 
-		return graph[id];
+		return graph[id-1];
 	}
 	@Override
 	public String toString() {
