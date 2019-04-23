@@ -7,7 +7,9 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.w3c.dom.Document;
 
+import graph.Graph;
 import parsing.SimulationParser;
+import pec.PEC;
 
 public class Run {
 
@@ -39,8 +41,10 @@ public class Run {
 		System.out.println("\n\nCoisas a fazer nos próximos instantes:");
 		System.out.println("- a variavel nAdj na classe Node tem de ser alterada, não o estamos a fazer. ");
 		System.out.println("- a função buildGraph não está a criar corretamente, corrigir o bug ");
+			
 		
-
+		sim.beginSimulation();
+		
 	}
 
 }

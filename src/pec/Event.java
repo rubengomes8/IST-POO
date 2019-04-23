@@ -2,7 +2,7 @@ package pec;
 
 public abstract class Event {
 	
-	double timestamp;
+	protected double timestamp;
 	
 	public Event(double timestamp) {
 		super();

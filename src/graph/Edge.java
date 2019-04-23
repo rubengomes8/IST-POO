@@ -36,7 +36,7 @@ public class Edge {
 	}
 	
 	public void updatePaylod(double payload) {
-		this.payload = payload;
+		this.payload+= payload;
 	}
 
 	@Override

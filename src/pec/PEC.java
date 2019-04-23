@@ -14,6 +14,10 @@ public class PEC {
 	public Event nextEvPEC() {
 		return eventqueue.poll();
 	}
+	
+	public int queuePEC() {
+		return eventqueue.size();
+	}
 
 	public PEC() {
 		super();

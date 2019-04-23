@@ -37,11 +37,12 @@ public class Node {
 	
 	public void addAdjacency(Edge[] adj) {
 		this.adjacent = adj;
+		this.nAdj = adj.length;
 	}
 	
-	public Edge[] getAdjacents() {
+	public Edge getAdjacents(int id) {
 		
-		return adjacent;
+		return adjacent[id];
 	}
 	
 	public double getWeight(int adjacent) {

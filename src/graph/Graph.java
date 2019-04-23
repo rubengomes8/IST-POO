@@ -26,15 +26,15 @@ public class Graph {
 	}
 
 	public void buildGraph() {
-
 		// will store for each edge in the list the nodes corresponding to it
-		int[] aux;
+		
 		// auxiliary iterator for the insertion of the edges in the adjacency array
 		int[] it = new int[nNodes];
 		Edge[][] adj= new Edge[nNodes][];
+		int[] aux;
 		// creates adjacency arrays to insert inside nodes
 		for (int i = 0; i < nNodes; i++) {
-			adj[i] = new Edge[nEdge[i]];
+			adj[i] = new Edge[nEdge[i+1]];
 		}
 		// builds adjacency array
 		for(Edge edge : graphEdges)
@@ -96,10 +96,6 @@ public class Graph {
 		this.nestNode = nestNode;
 	}
 
-	public LinkedList<Edge> getGraphEdges() {
-		return graphEdges;
-	}
-
 	public void setGraphEdges(LinkedList<Edge> graphEdges) {
 		this.graphEdges = graphEdges;
 	}
@@ -107,9 +103,11 @@ public class Graph {
 	public Node[] getGraph() {
 		return graph;
 	}
-	
-	
-	
+
+	public LinkedList<Edge> getGraphEdges() {
+		
+		return this.graphEdges;
+	}
 	
 }
 

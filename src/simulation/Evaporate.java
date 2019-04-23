@@ -3,6 +3,8 @@ package simulation;
 import graph.Edge;
 import pec.Event;
 
+import static utilities.Utilities.*;
+
 public class Evaporate extends Event{
 
 	protected static float eta;
@@ -10,18 +12,19 @@ public class Evaporate extends Event{
 	
 	Edge edge;
 	double pheromone;
+	Simulation sim;
 
-
-	public Evaporate(double timestamp, Edge edge, double pheromone) {
-		super(timestamp);
+	public Evaporate(Edge edge, Simulation sim) {
+		super(sim.getInst() + expRandom(eta));
 		this.edge = edge;
-		this.pheromone = pheromone;
+		this.sim = sim;
 	}
 	
 	@Override
 	public void executeEvent() {
 		
-		edge.updatePaylod(pheromone + edge.getPayload() );
+		edge.updatePaylod(-rho);
+		sim.incrementEvapCounter();
 		
 	}
 
@@ -40,7 +43,4 @@ public class Evaporate extends Event{
 	public static void setRho(float rho) {
 		Evaporate.rho = rho;
 	}
-	
-	
-
 }

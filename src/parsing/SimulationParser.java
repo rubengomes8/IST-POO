@@ -77,7 +77,7 @@ public class SimulationParser {
 		graph.buildGraph();
 		System.out.println(Arrays.toString(graph.getGraph()));
 		
-		
+		sim.setGraph(graph);
 		
 	}
 }
