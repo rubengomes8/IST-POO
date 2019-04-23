@@ -8,5 +8,6 @@ public abstract class Event {
 		super();
 		this.timestamp = timestamp;
 	}
-
+	
+	public void executeEvent();
 }
