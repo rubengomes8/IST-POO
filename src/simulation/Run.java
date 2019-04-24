@@ -43,7 +43,7 @@ public class Run {
 		System.out.println("- a função buildGraph não está a criar corretamente, corrigir o bug ");
 			
 		
-		sim.beginSimulation();
+		//sim.beginSimulation();
 		
 	}
 
