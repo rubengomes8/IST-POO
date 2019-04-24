@@ -16,13 +16,13 @@ public class Graph {
 		this.graph = new Node[size];
 		
 		for (int i = 0; i< size;i++) {
-			graph[i] = new Node(i+1);
+			graph[i] = new Node(i+1); //graph[i] tem id i+1
 		}
 		
 		this.nNodes = size;
 		this.nestNode = nested;
 		this.graphEdges = new LinkedList<Edge>();
-		this.nEdge = new int[size+1];
+		this.nEdge = new int[size+1]; // nEdge[0] tem número total de arestas nEdge[i] tem número de arestas do nó com o id i
 	}
 
 	public void buildGraph() {
@@ -49,6 +49,7 @@ public class Graph {
 		// insert inside all nodes
 		for (int i = 0; i < nNodes ; i++) {			
 			graph[i].addAdjacency(adj[i]);
+			//graph[i].setnAdj(adj[i].length);
 		}
 	}
 	
@@ -56,8 +57,8 @@ public class Graph {
 		
 		graphEdges.add(new Edge(node1, node2, weight));
 		// updates edge counter
-		nEdge[node1-1]++;
-		nEdge[node2-1]++;
+		nEdge[node1]++;
+		nEdge[node2]++;
 		nEdge[0]++;
 	}
 	
