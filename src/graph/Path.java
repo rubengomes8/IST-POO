@@ -2,54 +2,49 @@ package graph;
 
 import java.util.LinkedList;
 
-public class Path {
+public class Path implements Paths{
 	
-	private LinkedList<Node> path = new LinkedList<Node>();
+	private LinkedList<Edge> path = new LinkedList<Edge>();
+	private LinkedList<Integer> path2 = new LinkedList<Integer>();
 	private double cost;
-	private int length;
+	private Graph graph;
 	
 	
-	public void insertWaypoint(Node waypoint) {
+	public void insertWaypoint(int waypoint) {
 		
 		// Empty path
-		if (path == null) {
-			path.add(waypoint);
+		if (path2 == null) {
+			path2.add(waypoint);
 			cost = 0;
 		}
-				
-		double weight;
 		// not adjacent
-		if ( (weight = path.getLast().getWeight(waypoint.getID())) < 0) {
-			System.out.println("Attepting to move to non-adjacent Node!");
-			System.exit(-1);
-		}
-		length++;
-		cost += weight;
-		path.add(waypoint);
+		cost += graph.getEdgeWeight(path2.getLast(), waypoint);
+		path2.add(waypoint);
 	}
 	
-	public Node rollBack() {
-		Node aux = path.removeLast();
-	
-		cost = cost - aux.getPayload(path.getLast().getID());
+	public int rollBack() {
 		
+		int aux = path2.removeLast();
+		Edge aux2 = path.removeLast();
+	
+		cost = cost - aux2.getPayload();	
 		return aux;
 	}
 	
-	public Node getStart() {
-		return path.peekFirst();
+	public int getStart() {
+		return path2.peekFirst();
 	}
 	
-	public Node getLast() {
-		return path.peekLast();
+	public int getLast() {
+		return path2.peekLast();
 	}
 	
-	public boolean findWaypoint(Node waypoint) {
-		return path.contains(waypoint);
+	public boolean findWaypoint(int waypoint) {
+		return path2.contains(waypoint);
 	}
 	
 	public int getLength() {
-		return length;
+		return path2.size();
 	}
 	
 	public double getCost() {
@@ -60,26 +55,28 @@ public class Path {
 		this.cost = cost;
 	}
 	
-	public Node[] getPath() {
+	public Integer[] getPath() {
 		
-		return (Node[]) path.toArray();
+		return (Integer[]) path2.toArray();
 	}
 	
-	public void resetPath(Node waypoint) {
+	public void resetPath(int waypoint) {
 		
+		path2.clear();
 		path.clear();
-		path.add(waypoint);
+		path2.add(waypoint);
 		cost = 0;
 	}
 	
 	// Verifies if the path including the last waypoint as nest is Hamiltonian
-	public boolean isHamiltonian(Graph graph) {
+	public boolean isHamiltonian() {
 		
-		if (length < graph.getSizeNodes() )
+		// has not visited all nodes
+		if (path.size() < graph.getSizeNodes() )
 			return false;
 		
-		for (int i = 0; i< graph.getSizeNodes(); i++) {
-			if (!path.contains(graph.getNode(i)))
+		for (int i = 0; i < graph.getSizeNodes(); i++) {
+			if (!path2.contains(i))
 				return false;
 		}
 		return true;

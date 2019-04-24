@@ -1,8 +1,7 @@
 package simulation;
 
-import graph.Edge;
-import graph.Graph;
-import graph.Node;
+import graph.Graphs;
+import graph.Paths;
 import pec.Event;
 import static utilities.Utilities.*;
 
@@ -10,15 +9,16 @@ import static utilities.Utilities.*;
 public class AntMove extends Event{
 	
 	Ant ant;
-	Node next;
-	Graph graph;
+	int next;
+	Paths path;
+	Graphs graph;
 	Simulation sim;
 	private static float alpha;
 	private static float beta;
 	private static float delta;
 
-	public AntMove(Ant ant, Node move, Graph graph, Simulation sim) {
-		super(sim.getInst() + expRandom(delta * ant.path.getLast().getPayload(move.getID())) );
+	public AntMove(Ant ant, int move, Graphs graph, Simulation sim) {
+		super(sim.getInst() + expRandom( delta * graph.getEdgePayload(ant.path.getLast(), move)) );
 		this.ant = ant;
 		this.next = move;
 		this.graph = graph;
@@ -29,7 +29,7 @@ public class AntMove extends Event{
 		
 		if(next == ant.path.getStart()) {
 			// path is an Hamiltonian cycle
-			if (ant.path.isHamiltonian(graph)) {
+			if ( ant.path.isHamiltonian() ){
 				sim.incrementMoveCounter();
 				ant.path.insertWaypoint(next);
 				//update best cycle
@@ -38,16 +38,15 @@ public class AntMove extends Event{
 					sim.replaceCycle(ant.path);
 				}
 				// insert pheromones
-				Node aux;
-				Edge eaux;
+				int aux1;
+				int aux2;
 				
 				do {
-					aux = ant.path.rollBack();
-					//TODO: change denominator with actual formula
-					eaux = ant.path.getLast().getAdjacents(aux.getID());
-					eaux.updatePaylod( (sim.getpLevel() * cost) / ( 1 )  );
+					aux1 = ant.path.rollBack();
+					aux2 = ant.path.getLast();
+					graph.addEdgePayload(aux1, aux2, sim.getpLevel() * graph.getGraphWeight() / ( cost )  );
 					
-					new Evaporate(eaux, sim);
+					new Evaporate(graph, aux1,aux2, sim);
 					
 				} while(ant.path.getLast() != next);
 				
@@ -66,8 +65,8 @@ public class AntMove extends Event{
 			sim.incrementMoveCounter();
 		}
 		
-		//TODO: change null with appropriate first move
-		sim.pec.addEvPEC(new AntMove(ant, null ,graph, sim) );
+		//TODO: change 1 with appropriate first move
+		sim.pec.addEvPEC(new AntMove(ant, 1 ,graph, sim) );
 	}
 
 	public static float getAlpha() {

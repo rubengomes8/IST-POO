@@ -1,8 +1,8 @@
 package simulation;
 
 
-import graph.Graph;
-import graph.Path;
+import graph.Graphs;
+import graph.Paths;
 import pec.PEC;
 
 public class Simulation {
@@ -13,11 +13,12 @@ public class Simulation {
 	protected float instant;
 	protected int mevents;
 	protected int eevents;
-	
+	protected int nest;
+
 	protected Ant[] antColony;	
-	protected Path bestHamiltonianCycle;
+	protected Paths bestHamiltonianCycle;
 	protected PEC pec;
-	protected Graph graph;
+	protected Graphs graph;
 	
 
 		
@@ -33,18 +34,14 @@ public class Simulation {
 		for(int i = 1; i < 21;i++) {
 			pec.addEvPEC(new Observation(i,this));
 		}
-		
 		//Schedules first moves
 		for(int i = 0 ; i < getAntColSize(); i++) {
 			// create all ants, put them all in the nest and schedule move
-			antColony[i] = new Ant(i,graph.getNode(graph.getNestNode()) );
+			antColony[i] = new Ant(i, getNest());
 			
-			//TODO: change null with appropriate first move
-			pec.addEvPEC(new AntMove(antColony[i], null ,graph,this) );
+			//TODO: change 1 with appropriate first move
+			pec.addEvPEC(new AntMove(antColony[i], 1 ,graph,this) );
 		}
-		
-		
-		
 	}
 	
 	public float getInst() {
@@ -95,7 +92,7 @@ public class Simulation {
 		return this.bestHamiltonianCycle.toString();
 	}
 	
-	public void replaceCycle(Path path) {
+	public void replaceCycle(Paths path) {
 		this.bestHamiltonianCycle = path;
 	}
 	
@@ -103,12 +100,20 @@ public class Simulation {
 		return this.bestHamiltonianCycle.getCost();
 	}
 
-	public Graph getGraph() {
+	public Graphs getGraph() {
 		return graph;
 	}
 
-	public void setGraph(Graph graph) {
-		this.graph = graph;
+	public void setGraph(Graphs graph2) {
+		this.graph = graph2;
+	}
+	
+	public int getNest() {
+		return nest;
+	}
+
+	public void setNest(int nest) {
+		this.nest = nest;
 	}
 
 }

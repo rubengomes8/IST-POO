@@ -35,7 +35,7 @@ public class Edge {
 		return payload;
 	}
 	
-	public void updatePaylod(double payload) {
+	public void addPayload(double payload) {
 		this.payload+= payload;
 	}
 

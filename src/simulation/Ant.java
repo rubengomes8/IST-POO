@@ -1,14 +1,14 @@
 package simulation;
 
-import graph.Node;
 import graph.Path;
+import graph.Paths;
 
 public class Ant {
 	
 	private int id;
-	Path path;
+	Paths path;
 	
-	public Ant(int id, Node nest) {
+	public Ant(int id, int nest) {
 		super();
 		this.id = id;
 		this.path = new Path();

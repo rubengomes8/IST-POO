@@ -8,10 +8,10 @@ import org.xml.sax.helpers.*; // Handlers
 
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
-import org.w3c.dom.Node;
 import org.w3c.dom.Element;
 
 import graph.Graph;
+import graph.Graphs;
 import simulation.AntMove;
 import simulation.Evaporate;
 import simulation.Simulation;
@@ -32,7 +32,8 @@ public class SimulationParser {
 		
 		nList = doc.getElementsByTagName("graph");
 		eElement = (Element) nList.item(0);
-		Graph graph = new Graph(Integer.valueOf(eElement.getAttribute("nbnodes")), Integer.valueOf(eElement.getAttribute("nestnode")));
+		Graphs graph = new Graph(Integer.valueOf(eElement.getAttribute("nbnodes")));
+		sim.setNest(Integer.valueOf(eElement.getAttribute("nestnode")));
 		
 		//fazer um ciclo para criar os nNodes nós.
 		System.out.println("OLA");
@@ -72,11 +73,9 @@ public class SimulationParser {
 		System.out.println("rho: " + Evaporate.getRho());
 		System.out.println("eta: " + Evaporate.getEta());
 
-		System.out.println(Arrays.toString(graph.getGraphEdges().toArray()));
-		
-		graph.buildGraph();
-		System.out.println(Arrays.toString(graph.getGraph()));
-		
+		for (int i = 0; i < graph.getnNodes(); i++) {
+			System.out.println(graph.printEdges(i));
+		}
 		sim.setGraph(graph);
 		
 	}
