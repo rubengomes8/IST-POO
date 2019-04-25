@@ -52,8 +52,6 @@ public class Simulation {
 		}
 		while(pec.queuePEC() > 0)
 			instant = pec.nextEvPEC().executeEvent();
-		
-		System.out.println(this.printBestCycle() + " - " + this.getInst());
 		return;
 	}
 	
@@ -72,7 +70,7 @@ public class Simulation {
 		this.instant = instant;
 	}
 	
-	public double getMoveCounter() {
+	public int getMoveCounter() {
 		return mevents;
 	}
 	
@@ -80,7 +78,7 @@ public class Simulation {
 		this.mevents++;;
 	}
 	
-	public float getEvapCounter() {
+	public int getEvapCounter() {
 		return eevents;
 	}
 	
@@ -109,14 +107,11 @@ public class Simulation {
 	}	
 	
 	public String printBestCycle() {
-		System.out.println("Before read: " + this.printBestCycle() + " - " + this.getInst());
 		return this.bestHamiltonianCycle.getPath();
 	}
 	
 	public void replaceCycle(Paths path) {
-		System.out.println("Before replace: " + this.printBestCycle() + " - " + this.getInst());
-		this.bestHamiltonianCycle = path;
-		System.out.println("After replace: " + this.printBestCycle() + " - " + this.getInst());
+		this.bestHamiltonianCycle =  new Path((Path) path);
 	}
 	
 	public double getBestCost() {

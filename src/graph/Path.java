@@ -8,6 +8,14 @@ public class Path implements Paths{
 	private double cost;
 	private Graphs graph;
 	
+	// Deep copy constructor 
+	public Path(Path source) {
+		this.cost = source.getCost();
+		this.graph = source.graph;
+		for (Integer sourcePath : source.path2) {
+			path2.add(sourcePath);
+		}
+	}
 	
 	public Path(Graphs graph) {
 		super();
@@ -61,6 +69,7 @@ public class Path implements Paths{
 	
 	public String getPath() {
 		if (path2.size() > 0)
+			
 			return path2.toString();
 		else return "\0";
 	}
@@ -71,7 +80,5 @@ public class Path implements Paths{
 		path2.add(waypoint);
 		cost = 0;
 	}
-	
-	// Verifies if the path including the last waypoint as nest is Hamiltonian
 
 }
