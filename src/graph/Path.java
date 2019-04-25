@@ -6,15 +6,21 @@ public class Path implements Paths{
 	
 	private LinkedList<Integer> path2 = new LinkedList<Integer>();
 	private double cost;
-	private Graph graph;
+	private Graphs graph;
 	
 	
+	public Path(Graphs graph) {
+		super();
+		this.graph = graph;
+	}
+
 	public void insertWaypoint(int waypoint) {
 		
 		// Empty path
-		if (path2 == null) {
+		if (path2 == null || path2.size() == 0) {
 			path2.add(waypoint);
 			cost = 0;
+			return;
 		}
 		// not adjacent
 		cost += graph.getEdgeWeight(path2.getLast(), waypoint);
@@ -53,9 +59,10 @@ public class Path implements Paths{
 		this.cost = cost;
 	}
 	
-	public Integer[] getPath() {
-		
-		return (Integer[]) path2.toArray();
+	public String getPath() {
+		if (path2.size() > 0)
+			return path2.toString();
+		else return "\0";
 	}
 	
 	public void resetPath(int waypoint) {
@@ -66,18 +73,5 @@ public class Path implements Paths{
 	}
 	
 	// Verifies if the path including the last waypoint as nest is Hamiltonian
-	public boolean isHamiltonian() {
-		
-		// has not visited all nodes
-		if (path2.size() < graph.getSizeNodes() )
-			return false;
-		
-		for (int i = 0; i < graph.getSizeNodes(); i++) {
-			if (!path2.contains(i))
-				return false;
-		}
-		return true;
-		
-	}
 
 }

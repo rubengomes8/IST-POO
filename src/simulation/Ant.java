@@ -14,10 +14,10 @@ public class Ant {
 	private int id;
 	Paths path;
 	
-	public Ant(int id, int nest) {
+	public Ant(int id, int nest, Graphs graph) {
 		super();
 		this.id = id;
-		this.path = new Path();
+		this.path = new Path(graph);
 		path.insertWaypoint(nest);
 	}
 	
@@ -51,8 +51,8 @@ public class Ant {
 		}
 		if (!unvisited) {
 			//all adjacents have already been visited
-			double uniformbinEdge = 1 / j.length;
-			return (int)(f/uniformbinEdge);					
+			double uniformBinEdge = 1.0 / j.length;
+			return j[(int)(f/uniformBinEdge)];					
 		}
 		else {
 			int i;
@@ -69,7 +69,7 @@ public class Ant {
 			}
 			// choose next node
 			for ( i = 0; i < j.length; i++) {
-				comul = p[i];
+				comul += p[i];
 				if (f <= comul)
 					return j[i];
 			}
@@ -93,5 +93,15 @@ public class Ant {
 	public static void setBeta(float beta) {
 		Ant.beta = beta;
 	}
+
+	public Paths getPath() {
+		return path;
+	}
+
+	public void setPath(Paths path) {
+		this.path = path;
+	}
+	
+	
 		
 }

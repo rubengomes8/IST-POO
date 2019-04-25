@@ -2,15 +2,17 @@ package simulation;
 
 
 import graph.Graphs;
+import graph.Path;
 import graph.Paths;
 import pec.PEC;
+import static utilities.Utilities.*;
 
 public class Simulation {
 	
-	protected float finalInst;
+	protected double finalInst;
 	protected int antColSize;
-	protected float pLevel;
-	protected float instant;
+	protected double pLevel;
+	protected double instant;
 	protected int mevents;
 	protected int eevents;
 	protected int nest;
@@ -19,17 +21,20 @@ public class Simulation {
 	protected Paths bestHamiltonianCycle;
 	protected PEC pec;
 	protected Graphs graph;
-	
 
-		
-	public float getFinalInst() {
+	public double getFinalInst() {
 		return finalInst;
 	}
 	
 	public void beginSimulation() {
 		
-		PEC pec = new PEC();
+		antColony = new Ant[antColSize];	
+		pec = new PEC();
+		bestHamiltonianCycle = new Path(graph);
+		bestHamiltonianCycle.setCost(Double.POSITIVE_INFINITY);
 		
+		double times;
+		int firstMove;
 		// Schedules observer events
 		for(int i = 1; i < 21;i++) {
 			pec.addEvPEC(new Observation(i,this));
@@ -37,21 +42,37 @@ public class Simulation {
 		//Schedules first moves
 		for(int i = 0 ; i < getAntColSize(); i++) {
 			// create all ants, put them all in the nest and schedule move
-			antColony[i] = new Ant(i, getNest());
+			antColony[i] = new Ant(i, getNest(),graph);
 			
-			pec.addEvPEC(new AntMove(antColony[i],
-					antColony[i].chooseNext(antColony[i].path, graph), graph, this));
+			firstMove = antColony[i].chooseNext(antColony[i].getPath(), graph);
+			
+			times = expRandom(AntMove.getDelta() * graph.getEdgeWeight(antColony[i].getPath().getLast(), firstMove));
+			
+			pec.addEvPEC(new AntMove(antColony[i],firstMove, this, times));
 		}
+		while(pec.queuePEC() > 0)
+			instant = pec.nextEvPEC().executeEvent();
+		
+		System.out.println(this.printBestCycle() + " - " + this.getInst());
+		return;
 	}
 	
-	public float getInst() {
+	public PEC getPec() {
+		return pec;
+	}
+
+	public void setPec(PEC pec) {
+		this.pec = pec;
+	}
+
+	public double getInst() {
 		return instant;
 	}
 	public void setInst(float instant) {
 		this.instant = instant;
 	}
 	
-	public float getMoveCounter() {
+	public double getMoveCounter() {
 		return mevents;
 	}
 	
@@ -79,7 +100,7 @@ public class Simulation {
 		this.antColSize = antColSize;
 	}
 	
-	public float getpLevel() {
+	public double getpLevel() {
 		return pLevel;
 	}
 	
@@ -88,12 +109,14 @@ public class Simulation {
 	}	
 	
 	public String printBestCycle() {
-		
-		return this.bestHamiltonianCycle.toString();
+		System.out.println("Before read: " + this.printBestCycle() + " - " + this.getInst());
+		return this.bestHamiltonianCycle.getPath();
 	}
 	
 	public void replaceCycle(Paths path) {
+		System.out.println("Before replace: " + this.printBestCycle() + " - " + this.getInst());
 		this.bestHamiltonianCycle = path;
+		System.out.println("After replace: " + this.printBestCycle() + " - " + this.getInst());
 	}
 	
 	public double getBestCost() {

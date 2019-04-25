@@ -1,47 +1,37 @@
 package simulation;
 
-import graph.Graphs;
 import pec.Event;
 
-import static utilities.Utilities.*;
 
 public class Evaporate extends Event{
 
-	protected static float eta;
-	protected static float rho;
 	
 	int node1;
 	int node2;
 	double pheromone;
 	Simulation sim;
-	Graphs graph;
+	
+	protected static float rho;
+	protected static float eta;
 
-	public Evaporate(Graphs graph, int node1,int node2, Simulation sim) {
-		super(sim.getInst() + expRandom(eta));
-		this.graph = graph;
+	public Evaporate(int node1,int node2, Simulation sim, double time) {
+		super(time);
 		this.sim = sim;
 		this.node1 = node1;
 		this.node2 = node2;
 	}
 	
 	@Override
-	public void executeEvent() {
+	public double executeEvent() {
 		
-		if ( graph.getEdgePayload(node1, node2) < rho) {
-			graph.addEdgePayload(node1, node2, -1 * graph.getEdgePayload(node1, node2));
+		if ( sim.getGraph().getEdgePayload(node1, node2) < rho) {
+			sim.getGraph().addEdgePayload(node1, node2, -1 * sim.getGraph().getEdgePayload(node1, node2));
 		}
 		else
-			graph.addEdgePayload(node1, node2,-rho);
+			sim.getGraph().addEdgePayload(node1, node2,-rho);
 		sim.incrementEvapCounter();
 		
-	}
-
-	public static float getEta() {
-		return eta;
-	}
-
-	public static void setEta(float eta) {
-		Evaporate.eta = eta;
+		return this.timestamp;
 	}
 
 	public static float getRho() {
@@ -50,5 +40,13 @@ public class Evaporate extends Event{
 
 	public static void setRho(float rho) {
 		Evaporate.rho = rho;
+	}
+	
+	public static float getEta() {
+		return eta;
+	}
+
+	public static void setEta(float eta) {
+		Evaporate.eta = eta;
 	}
 }

@@ -10,15 +10,15 @@ public class Graph implements Graphs {
 	
 	public Graph(int size) {
 		super();	
-		adj = new Edge[nNodes][nNodes];
+		adj = new Edge[size][size];
 		this.nNodes = size;
 		this.nEdge = new int[size+1];
 	}
 	
 	public void addEdge(int node1, int node2, double weight) {
 		
-		adj[node1][node2] = new Edge(node1, node2, weight);
-		adj[node2][node1] = adj[node1][node2] ;
+		adj[node1-1][node2-1] = new Edge(node1, node2, weight);
+		adj[node2-1][node1-1] = adj[node1-1][node2-1] ;
 		// updates edge counter
 		nEdge[node1]++;
 		nEdge[node2]++;
@@ -31,7 +31,6 @@ public class Graph implements Graphs {
 	}
 
 	public int getSizeNodes() {
-
 		return nNodes;
 	}
 	
@@ -49,25 +48,27 @@ public class Graph implements Graphs {
 	
 	public double getEdgeWeight(int node1, int node2) {
 		
-		if (adj[node1][node2] == null ) {
+		if (adj[node1-1][node2-1] == null ) {
 			//TODO: throw exception
+			System.out.println("adjacency doesn't exist");
 			return -1;
 		}
 		else 
-			return adj[node1][node2].getWeight();
+			return adj[node1-1][node2-1].getWeight();
 	}
 	
 	public double getEdgePayload(int node1, int node2) {
-		if (adj[node1][node2] == null) {
+		if (adj[node1-1][node2-1] == null) {
 			//TODO: throw exception
+			System.out.println("adjacency doesn't exist");
 			return -1;
 		}
 		else
-			return adj[node1][node2].getPayload();
+			return adj[node1-1][node2-1].getPayload();
 	}
 	
 	public void addEdgePayload(int node1, int node2, double payload) {
-		adj[node1][node2].addPayload(payload);
+		adj[node1-1][node2-1].addPayload(payload);
 	}
 	
 	public String printEdges(int node) {
@@ -87,9 +88,9 @@ public class Graph implements Graphs {
 		int cnt = 0;
 		
 		for (int i = 0 ; i < nNodes;i++) {
-			if (adj[node][i] == null) continue;
+			if (adj[node-1][i] == null) continue;
 			
-			ends = adj[node][i].getNodes();
+			ends = adj[node-1][i].getNodes();
 			// one of the ends of the Edge is *node* !
 			adjacents[cnt] = (ends[0] == node ? ends[1]:ends[0]);
 			cnt++;

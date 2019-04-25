@@ -5,10 +5,10 @@ import java.util.PriorityQueue;
 public class PEC {
 	
 	PriorityQueue<Event> eventqueue;
+	double stop;
 	
 	public void addEvPEC(Event ev) {
 		eventqueue.add(ev);
-		
 	}
 	
 	public Event nextEvPEC() {
@@ -23,6 +23,5 @@ public class PEC {
 		super();
 		this.eventqueue = new PriorityQueue<Event>(new TimestampCompare());
 	}
-	
 	
 }

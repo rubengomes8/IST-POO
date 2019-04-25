@@ -1,70 +1,79 @@
 package simulation;
 
-import graph.Graphs;
-import graph.Paths;
 import pec.Event;
+
 import static utilities.Utilities.*;
 
 
 public class AntMove extends Event{
 	
 	Ant ant;
-	int next;
-	Paths path;
-	Graphs graph;
 	Simulation sim;
+	private int next;
+	
 	private static float delta;
 
-	public AntMove(Ant ant, int move, Graphs graph, Simulation sim) {
-		super(sim.getInst() + expRandom( delta * graph.getEdgePayload(ant.path.getLast(), move)) );
+	public AntMove(Ant ant, int move, Simulation sim, double time) {
+		super(time);
 		this.ant = ant;
 		this.next = move;
-		this.graph = graph;
 		this.sim = sim;
 	}
 	
-	public void executeEvent() {
+	public double executeEvent() {
 		
-		if(next == ant.path.getStart()) {
+		double time;
+		
+		if(next == sim.getNest() && ant.getPath().getLength() == sim.getGraph().getSizeNodes()) {
 			// path is an Hamiltonian cycle
-			if ( ant.path.isHamiltonian() ){
-				sim.incrementMoveCounter();
-				ant.path.insertWaypoint(next);
-				//update best cycle
-				double cost = ant.path.getCost();
-				if (sim.getBestCost() > cost ) {
-					sim.replaceCycle(ant.path);
-				}
-				// insert pheromones
-				int aux1;
-				int aux2;
-				
-				do {
-					aux1 = ant.path.rollBack();
-					aux2 = ant.path.getLast();
-					graph.addEdgePayload(aux1, aux2, sim.getpLevel() * graph.getGraphWeight() / ( cost )  );
-					
-					new Evaporate(graph, aux1,aux2, sim);
-					
-				} while(ant.path.getLast() != next);
-				
-				ant.path.resetPath(next);
+			sim.incrementMoveCounter();
+			ant.getPath().insertWaypoint(next);
+			//update best cycle
+			double cost = ant.getPath().getCost();
+			if (sim.getBestCost() > cost) {
+				sim.replaceCycle(ant.getPath());
 			}
+			// insert pheromones
+			int aux1;
+			int aux2;
+			
+			do {
+				aux1 = ant.getPath().rollBack();
+				aux2 = ant.getPath().getLast();
+				sim.getGraph().addEdgePayload(aux1, aux2, sim.getpLevel() * sim.getGraph().getGraphWeight() / ( cost )  );
+				time = this.timestamp + expRandom(Evaporate.getEta());
+				if (time <= sim.getFinalInst())
+					sim.getPec().addEvPEC(new Evaporate(aux1, aux2, sim, time));					
+			} while(ant.getPath().getLast() != next);
+				
+			ant.getPath().resetPath(next);
 		}
-		else if (ant.path.findWaypoint(next) ) {
+		else if (ant.getPath().findWaypoint(next) ) {
 			//inner cycle found, roll-back
-			while(ant.path.getLast() != next) {
-				ant.path.rollBack();
+			while(ant.getPath().getLast() != next) {
+				ant.getPath().rollBack();
 			}
 			sim.incrementMoveCounter();
 		}
 		else {
-			ant.path.insertWaypoint(next);
+			ant.getPath().insertWaypoint(next);
 			sim.incrementMoveCounter();
 		}
-		sim.pec.addEvPEC(new AntMove(ant, ant.chooseNext(path, graph) ,graph, sim) );
+		// Schedule next move
+		int move = ant.chooseNext(ant.getPath(), sim.getGraph());
+		time = getTime(move);	
+		
+		if (time <= sim.getFinalInst()) 
+			sim.getPec().addEvPEC(new AntMove(ant,move, sim, time));
+		
+		return this.timestamp;
 	}
-
+	
+	public double getTime(int move) {
+		
+		return this.timestamp + expRandom(delta *sim.getGraph().getEdgeWeight(ant.getPath().getLast(), move));
+	}
+	
 	public static float getDelta() {
 		return delta;
 	}
@@ -72,7 +81,5 @@ public class AntMove extends Event{
 	public static void setDelta(float delta) {
 		AntMove.delta = delta;
 	}
-	
-	
 
 }

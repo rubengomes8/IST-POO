@@ -9,7 +9,7 @@ public abstract class Event {
 		this.timestamp = timestamp;
 	}
 	
-	public abstract void executeEvent();
+	public abstract double executeEvent();
 	
 	
 }

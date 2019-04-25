@@ -18,12 +18,8 @@ public interface Paths {
 	
 	public void setCost(double cost);
 	
-	public Integer[] getPath();
+	public String getPath();
 	
-	public void resetPath(int waypoint);
-	
-	public boolean isHamiltonian();
-	
-	
+	public void resetPath(int waypoint);	
 
 }
