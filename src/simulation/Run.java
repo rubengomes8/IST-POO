@@ -7,9 +7,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.w3c.dom.Document;
 
-import graph.Graphs;
 import parsing.SimulationParser;
-import pec.PEC;
 
 public class Run {
 

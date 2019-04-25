@@ -74,9 +74,28 @@ public class Graph implements Graphs {
 		
 		StringBuilder txt = new StringBuilder();
 		for (int i = 0; i < nNodes; i++) {
-			 txt.append((adj[node][i]));
+			if (adj[node][i] == null) continue;
+			txt.append((adj[node][i]) + " ");
 		}
 		return txt.toString();
+	}
+	
+	public int[] returnEdges(int node) {
+		
+		int[] ends;
+		int[] adjacents = new int[nEdge[node]];
+		int cnt = 0;
+		
+		for (int i = 0 ; i < nNodes;i++) {
+			if (adj[node][i] == null) continue;
+			
+			ends = adj[node][i].getNodes();
+			// one of the ends of the Edge is *node* !
+			adjacents[cnt] = (ends[0] == node ? ends[1]:ends[0]);
+			cnt++;
+		}
+		
+		return adjacents;
 	}
 }
 

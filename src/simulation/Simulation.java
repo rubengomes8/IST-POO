@@ -39,8 +39,8 @@ public class Simulation {
 			// create all ants, put them all in the nest and schedule move
 			antColony[i] = new Ant(i, getNest());
 			
-			//TODO: change 1 with appropriate first move
-			pec.addEvPEC(new AntMove(antColony[i], 1 ,graph,this) );
+			pec.addEvPEC(new AntMove(antColony[i],
+					antColony[i].chooseNext(antColony[i].path, graph), graph, this));
 		}
 	}
 	
@@ -115,5 +115,4 @@ public class Simulation {
 	public void setNest(int nest) {
 		this.nest = nest;
 	}
-
 }

@@ -12,6 +12,7 @@ import org.w3c.dom.Element;
 
 import graph.Graph;
 import graph.Graphs;
+import simulation.Ant;
 import simulation.AntMove;
 import simulation.Evaporate;
 import simulation.Simulation;
@@ -59,11 +60,11 @@ public class SimulationParser {
 		
 		nList = doc.getElementsByTagName("move");
 		eElement = (Element) nList.item(0);
-		AntMove.setAlpha(Float.valueOf(eElement.getAttribute("alpha")));
-		AntMove.setBeta(Float.valueOf(eElement.getAttribute("beta")));
+		Ant.setAlpha(Float.valueOf(eElement.getAttribute("alpha")));
+		Ant.setBeta(Float.valueOf(eElement.getAttribute("beta")));
 		AntMove.setDelta(Float.valueOf(eElement.getAttribute("delta")));
-		System.out.println("alpha: " + AntMove.getAlpha());
-		System.out.println("beta: " + AntMove.getBeta());
+		System.out.println("alpha: " + Ant.getAlpha());
+		System.out.println("beta: " + Ant.getBeta());
 		System.out.println("delta: " + AntMove.getDelta());
 		
 		nList = doc.getElementsByTagName("evaporation");

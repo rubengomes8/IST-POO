@@ -5,16 +5,18 @@ import pec.Event;
 public class Observation extends Event{
 	
 	Simulation sim;
+	private int n;
 
 	public Observation(int n, Simulation sim) {
 		super(n * sim.getFinalInst()/20);
+		this.n = n;
 		this.sim = sim;
 	}
 
 	@Override
 	public void executeEvent() {
 		
-		System.out.println("Observation " + timestamp + "\n");
+		System.out.println("Observation " + n + "\n");
 		System.out.println("	Present instant: " + sim.getInst() );
 		System.out.println("	Number of move events: " + sim.getMoveCounter() );
 		System.out.println("	Number of evaporation events: " + sim.getEvapCounter() );

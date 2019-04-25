@@ -13,8 +13,6 @@ public class AntMove extends Event{
 	Paths path;
 	Graphs graph;
 	Simulation sim;
-	private static float alpha;
-	private static float beta;
 	private static float delta;
 
 	public AntMove(Ant ant, int move, Graphs graph, Simulation sim) {
@@ -64,25 +62,7 @@ public class AntMove extends Event{
 			ant.path.insertWaypoint(next);
 			sim.incrementMoveCounter();
 		}
-		
-		//TODO: change 1 with appropriate first move
-		sim.pec.addEvPEC(new AntMove(ant, 1 ,graph, sim) );
-	}
-
-	public static float getAlpha() {
-		return alpha;
-	}
-
-	public static void setAlpha(float alpha) {
-		AntMove.alpha = alpha;
-	}
-
-	public static float getBeta() {
-		return beta;
-	}
-
-	public static void setBeta(float beta) {
-		AntMove.beta = beta;
+		sim.pec.addEvPEC(new AntMove(ant, ant.chooseNext(path, graph) ,graph, sim) );
 	}
 
 	public static float getDelta() {

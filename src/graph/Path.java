@@ -4,7 +4,6 @@ import java.util.LinkedList;
 
 public class Path implements Paths{
 	
-	private LinkedList<Edge> path = new LinkedList<Edge>();
 	private LinkedList<Integer> path2 = new LinkedList<Integer>();
 	private double cost;
 	private Graph graph;
@@ -25,9 +24,8 @@ public class Path implements Paths{
 	public int rollBack() {
 		
 		int aux = path2.removeLast();
-		Edge aux2 = path.removeLast();
 	
-		cost = cost - aux2.getPayload();	
+		cost = cost - graph.getEdgeWeight(aux, path2.getLast());
 		return aux;
 	}
 	
@@ -63,7 +61,6 @@ public class Path implements Paths{
 	public void resetPath(int waypoint) {
 		
 		path2.clear();
-		path.clear();
 		path2.add(waypoint);
 		cost = 0;
 	}
@@ -72,7 +69,7 @@ public class Path implements Paths{
 	public boolean isHamiltonian() {
 		
 		// has not visited all nodes
-		if (path.size() < graph.getSizeNodes() )
+		if (path2.size() < graph.getSizeNodes() )
 			return false;
 		
 		for (int i = 0; i < graph.getSizeNodes(); i++) {

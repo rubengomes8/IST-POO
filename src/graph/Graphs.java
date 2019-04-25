@@ -22,5 +22,7 @@ public interface Graphs {
 	
 	public String printEdges(int node);
 	
+	public int[] returnEdges(int node);
+	
 	
 }
