@@ -49,16 +49,16 @@ public class Ant {
 	}
 	
 	/**
-    * Gets the next 
-    * @param path 
-    * @param graph
-    * @return a <code> integer </code> specifying
-    * the 
+    * Gets the next node to be visited.
+    * @param path is the path traveled by the ant until the present instant
+    * @param graph is the graph that describes the connection between all nodes
+    * @return a <code> int </code> specifying
+    * the next node to be visited
     */
 	
 	public int chooseNext(Paths path, Graphs graph) {
 		
-		Random r =	new Random();
+		Random r = new Random();
 		double f = r.nextDouble();
 		double comul = 0;
 		
