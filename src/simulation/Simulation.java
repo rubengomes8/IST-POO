@@ -31,6 +31,11 @@ public class Simulation {
 	protected Graphs graph;
 	
 
+	/*
+	* Begins the simulation.
+	* Initializes the variables. 
+	* Schedules observer events and first move events and starts executing the events contained in the pending event container.
+	*/
 	
 	public void beginSimulation() {
 		
