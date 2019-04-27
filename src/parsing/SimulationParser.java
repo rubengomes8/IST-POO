@@ -11,9 +11,25 @@ import simulation.Ant;
 import simulation.AntMove;
 import simulation.Evaporate;
 import simulation.Simulation;
+
+
+/**
+ * This is a class to get the parameters of the simulation from the input xml file
+ *
+ * @author John Mendonça, Manuel Domingues, Rúben Gomes
+ */
+
+
 public class SimulationParser {
 
 	
+   /**
+    * Gets the parameters of the simulation from the input xml file
+    * @param doc is the result of parsing the xml file
+    * @param sim is an instance of the class Simulation responsible to perform the simulation
+    * @throws 
+    */
+
 	public void getSimulationParams(Document doc, Simulation sim)
 	{
 		
@@ -31,7 +47,7 @@ public class SimulationParser {
 		Graphs graph = new Graph(Integer.valueOf(eElement.getAttribute("nbnodes")));
 		sim.setNest(Integer.valueOf(eElement.getAttribute("nestnode")));
 		
-		//fazer um ciclo para criar os nNodes nós.
+		//Creats all the nNodes nodes.
 		nList = doc.getElementsByTagName("node");
 		for(int i = 0; i< nList.getLength(); i++)
 		{
@@ -63,15 +79,17 @@ public class SimulationParser {
 		
 		nList = doc.getElementsByTagName("evaporation");
 		eElement = (Element) nList.item(0);
+		
 		Evaporate.setRho(Float.valueOf(eElement.getAttribute("rho")));
 		Evaporate.setEta(Float.valueOf(eElement.getAttribute("eta")));
 		//System.out.println("rho: " + Evaporate.getRho());
 		//System.out.println("eta: " + Evaporate.getEta());
-
-		/*for (int i = 0; i < graph.getnNodes(); i++) {
+		
+		/*
+		for (int i = 0; i < graph.getnNodes(); i++) {
 			System.out.println("Node " + (i+1) + " has " + graph.printEdges(i));
-		}
-		*/
+		}*/
+		
 		sim.setGraph(graph);
 		
 	}

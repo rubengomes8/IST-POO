@@ -2,9 +2,23 @@ package pec;
 
 import java.util.Comparator;
 
+/**
+ * TimestampCompare.java
+ * Class that implements the Comparator interface and redefines the method compare
+ *
+ * @author John Mendonça, Manuel Domingues, Rúben Gomes
+ * @since 04-26-2019
+ */
+
 class TimestampCompare implements Comparator<Event> {
 	
-
+	/**
+    * method that checks which event passed by argument has the greatest timestamp
+    * @param arg0 is an event which timestamp will be compared
+    * @param arg1 is the other event which timestamp will be compared
+    * @return the value returned defines which event has the greatest timestamp
+    */
+	
 	@Override
 	public int compare(Event arg0, Event arg1) {
 		

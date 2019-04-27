@@ -4,6 +4,14 @@ import pec.Event;
 
 import static utilities.Utilities.*;
 
+/**
+ * AntMove.java
+ * This is a subclass of Event representing an Ant transverse between two adjacent nodes
+ *
+ * @author John Mendonça, Manuel Domingues, Rúben Gomes
+ * @since 04-26-2019
+ */
+
 
 public class AntMove extends Event{
 	
@@ -13,6 +21,14 @@ public class AntMove extends Event{
 	
 	private static float delta;
 
+	/**
+    * AntMove construtor
+    * @param ant is the ant that will transverse the edge
+    * @param move is the destination node
+    * @param sim is the Simulation Object
+    * @param time is the time that the transversal takes
+    */
+	
 	public AntMove(Ant ant, int move, Simulation sim, double time) {
 		super(time);
 		this.ant = ant;
@@ -20,12 +36,18 @@ public class AntMove extends Event{
 		this.sim = sim;
 	}
 	
+	/**
+    * Execution of the Event AntMove. Verifies if a hamiltonian cycle was found; 
+    * if not, verifies if an inner cycle was found and makes the needed instructions. 
+    * If not, inserts the node to the path.
+    * @return timestamp is the time at which this Event was triggered
+    */
+	
 	public double executeEvent() {
 		
 		double time;
-		
+		//if path is an Hamiltonian cycle
 		if(next == sim.getNest() && ant.getPath().getLength() == sim.getGraph().getSizeNodes()) {
-			// path is an Hamiltonian cycle
 			sim.incrementMoveCounter();
 			ant.getPath().insertWaypoint(next);
 			//update best cycle
@@ -47,9 +69,8 @@ public class AntMove extends Event{
 			} while(ant.getPath().getLast() != next);
 				
 			ant.getPath().resetPath(next);
-		}
+		} //inner cycle found, roll-back
 		else if (ant.getPath().findWaypoint(next) ) {
-			//inner cycle found, roll-back
 			while(ant.getPath().getLast() != next) {
 				ant.getPath().rollBack();
 			}
@@ -64,20 +85,38 @@ public class AntMove extends Event{
 		time = getTime(move);	
 		
 		if (time <= sim.getFinalInst()) 
-			sim.getPec().addEvPEC(new AntMove(ant,move, sim, time));
+			sim.getPec().addEvPEC(new AntMove(ant, move, sim, time));
 		
 		return this.timestamp;
 	}
+	
+	/**
+    * Gets the time that the ant takes to traverse an edge between the two nodes
+    * @return a <code> double </code> specifying
+    * the time
+    */
 	
 	public double getTime(int move) {
 		
 		return this.timestamp + expRandom(delta *sim.getGraph().getEdgeWeight(ant.getPath().getLast(), move));
 	}
+
+	/**
+    * Gets the delta parameter that defines how many time an ant takes to traverse an edge
+    * @return a <code> float </code> specifying
+    * the delta parameter
+    */
 	
 	public static float getDelta() {
 		return delta;
 	}
 
+	
+	/**
+    * Sets the delta parameter
+    * @param delta is the delta parameter to be set
+    */
+	
 	public static void setDelta(float delta) {
 		AntMove.delta = delta;
 	}

@@ -6,13 +6,30 @@ import graph.Graphs;
 import graph.Path;
 import graph.Paths;
 
+
+/**
+ * Ant.java
+ * This is a model class to hold ant information
+ *
+ * @author John Mendonça, Manuel Domingues, Rúben Gomes
+ * @since 04-26-2019
+ */
+
+
 public class Ant {
 	
 	private static float alpha;
 	private static float beta;
-	
 	private int id;
 	Paths path;
+	
+	
+  /**
+    * Ant constructor
+    * @param id is an integer that identifies the ant
+    * @param nest is the first node of the Hamiltonian cycle
+    * @param graph is the graph containing all the nodes and the edges
+    */
 	
 	public Ant(int id, int nest, Graphs graph) {
 		super();
@@ -21,9 +38,23 @@ public class Ant {
 		path.insertWaypoint(nest);
 	}
 	
+   /**
+    * Gets the ant ID
+    * @return a <code> integer </code> specifying
+    * the ant ID
+    */
+	
 	public int returnID() {
 		return id;
 	}
+	
+	/**
+    * Gets the next 
+    * @param path 
+    * @param graph
+    * @return a <code> integer </code> specifying
+    * the 
+    */
 	
 	public int chooseNext(Paths path, Graphs graph) {
 		
@@ -78,26 +109,59 @@ public class Ant {
 		}
 	}
 	
+   /**
+    * Gets the alpha parameter
+    * @return a <code> float </code> specifying
+    * the alpha parameter
+    */
+	
 	public static float getAlpha() {
 		return alpha;
 	}
+	
+	/**
+    * Sets the alpha parameter
+    * @param beta is the alpha parameter to be set
+    */
 
 	public static void setAlpha(float alpha) {
 		Ant.alpha = alpha;
 	}
 
+	/**
+    * Gets the beta parameter
+    * @return a <code> float </code> specifying
+    * the beta parameter
+    */
+	
 	public static float getBeta() {
 		return beta;
 	}
 
+	/**
+    * Sets the beta parameter
+    * @param beta is the beta parameter to be set
+    */
+	
 	public static void setBeta(float beta) {
 		Ant.beta = beta;
 	}
 
+	/**
+    * Gets the path
+    * @return a <code> Paths </code> specifying
+    * the path of the ant
+    */
+	
 	public Paths getPath() {
 		return path;
 	}
-
+	
+	/**
+    * Sets the path
+    * @param path is the path to be set
+    */
+	
 	public void setPath(Paths path) {
 		this.path = path;
 	}

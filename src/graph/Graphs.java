@@ -10,8 +10,6 @@ public interface Graphs {
 	
 	public int getSizeEdges();
 	
-	public int getnNodes();
-	
 	public void setnNodes(int nNodes);
 	
 	public double getEdgeWeight(int node1, int node2);

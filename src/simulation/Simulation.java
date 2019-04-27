@@ -35,14 +35,16 @@ public class Simulation {
 		
 		double times;
 		int firstMove;
+		
 		// Schedules observer events
 		for(int i = 1; i < 21;i++) {
 			pec.addEvPEC(new Observation(i,this));
 		}
+		
 		//Schedules first moves
 		for(int i = 0 ; i < getAntColSize(); i++) {
 			// create all ants, put them all in the nest and schedule move
-			antColony[i] = new Ant(i, getNest(),graph);
+			antColony[i] = new Ant(i, getNest(), graph);
 			
 			firstMove = antColony[i].chooseNext(antColony[i].getPath(), graph);
 			
@@ -50,6 +52,7 @@ public class Simulation {
 			
 			pec.addEvPEC(new AntMove(antColony[i],firstMove, this, times));
 		}
+		
 		while(pec.queuePEC() > 0)
 			instant = pec.nextEvPEC().executeEvent();
 		return;
@@ -122,8 +125,8 @@ public class Simulation {
 		return graph;
 	}
 
-	public void setGraph(Graphs graph2) {
-		this.graph = graph2;
+	public void setGraph(Graphs graph) {
+		this.graph = graph;
 	}
 	
 	public int getNest() {
