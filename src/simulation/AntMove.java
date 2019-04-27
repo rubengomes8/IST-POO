@@ -26,7 +26,7 @@ public class AntMove extends Event{
     * @param ant is the ant that will transverse the edge
     * @param move is the destination node
     * @param sim is the Simulation Object
-    * @param time is the time that the transversal takes
+    * @param time is the time at which the event AntMove has occured
     */
 	
 	public AntMove(Ant ant, int move, Simulation sim, double time) {
