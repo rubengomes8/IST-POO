@@ -1,5 +1,14 @@
 package graph;
 
+/**
+ * 
+ * Graphs.java
+ * Interface class that describes a graph composed by weighted edges and nodes
+ * 
+ * @author John Mendonça, Manuel Domingues, Rúben Gomes
+ * @since 04-26-2019
+ */
+
 public interface Graphs {
 
 	public void addEdge(int node1, int node2, double weight);
