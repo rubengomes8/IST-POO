@@ -35,11 +35,13 @@ public class Observation extends Event{
 	@Override
 	public double executeEvent() {
 		
-		System.out.println("Observation " + n);
+		System.out.println("Observation " + n + ":");
 		System.out.println("	Present instant: " + sim.getInst() );
 		System.out.println("	Number of move events: " + sim.getMoveCounter() );
 		System.out.println("	Number of evaporation events: " + sim.getEvapCounter() );
-		System.out.println("	Hamiltonian cycle: " + sim.printBestCycle() + "\n");
+		String aux = new String(sim.printBestCycle());
+		aux = "{" + aux.substring(1, aux.length()-1) + "}";
+		System.out.println("	Hamiltonian cycle: " + aux + "\n");
 		
 		return this.timestamp;
 	}

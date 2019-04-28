@@ -90,8 +90,15 @@ public class Ant {
 			for (i = 0 ; i < j.length ; i++) {
 				if (!visited[i]) {
 					// calculates cij and sums ci
-					p[i] = (alpha + graph.getEdgePayload(cur,j[i]))/(beta + graph.getEdgeWeight(cur, j[i]));
-					ci+= p[i];
+					if((beta + graph.getEdgeWeight(cur, j[i])) != 0)
+					{
+						p[i] = (alpha + graph.getEdgePayload(cur,j[i]))/(beta + graph.getEdgeWeight(cur, j[i]));
+						ci+= p[i];
+					}
+					else
+					{
+						System.out.println("Error: Divisor <Beta + EdgeWeight> is equal to zero");
+					}
 				}
 			}
 			// calculates pij

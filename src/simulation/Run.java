@@ -30,7 +30,7 @@ public class Run {
 			System.out.println("Tem que ter o ficheiro xml de entrada");
 			System.exit(0);
 		}
-		
+		/*
 		SimulationParser simPars = new SimulationParser();
 		Simulation sim = new Simulation();
 		try
@@ -46,7 +46,10 @@ public class Run {
 		catch(Exception e)
 		{
 			e.printStackTrace();
-		}		
+		}		*/
+		
+		Simulation sim = new Simulation();
+		SimulationParser simPars = new SimulationParser(args[0],sim);		
 		sim.beginSimulation();
 		
 		

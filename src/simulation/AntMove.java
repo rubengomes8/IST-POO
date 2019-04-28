@@ -62,7 +62,16 @@ public class AntMove extends Event{
 			do {
 				aux1 = ant.getPath().rollBack();
 				aux2 = ant.getPath().getLast();
-				sim.getGraph().addEdgePayload(aux1, aux2, sim.getpLevel() * sim.getGraph().getGraphWeight() / ( cost )  );
+				
+				if(cost != 0)
+				{
+					sim.getGraph().addEdgePayload(aux1, aux2, sim.getpLevel() * sim.getGraph().getGraphWeight() / ( cost )  );
+				}
+				else
+				{
+					System.out.println("Error: Divisor <Cost of cycle> is equal to zero");
+				}
+			
 				time = this.timestamp + expRandom(Evaporate.getEta());
 				if (time <= sim.getFinalInst())
 					sim.getPec().addEvPEC(new Evaporate(aux1, aux2, sim, time));					
