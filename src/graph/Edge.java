@@ -16,11 +16,11 @@ public class Edge {
     private double payload;
     
 	/**
-    	* Edge constructor. Connects two nodes with a given weight.
-    	* @param node1 is one of the two nodes to be connected
+	* Edge constructor. Connects two nodes with a given weight.
+	* @param node1 is one of the two nodes to be connected
 	* @param node2 is the other node to be connected
 	* @param weight is the weight of the edge
-    	*/
+	*/
 
 	public Edge(int node1, int node2, double weight) {
 		super();
@@ -44,11 +44,11 @@ public class Edge {
 	}
 	
 	/**
-    	* Checks if a given node is an extreme of this Edge.
-    	* @param id is the node identifier that we want to check
+	* Checks if a given node is an extreme of this Edge.
+	* @param id is the node identifier that we want to check
 	* @return a <code> boolean </code> specifying
-    	* wether the node belongs or not to this Edge
-    	*/
+	* wether the node belongs or not to this Edge
+	*/
 
 	public boolean isEnd(int id) {
 		
