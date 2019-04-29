@@ -20,7 +20,6 @@ public class Graph implements Graphs {
     * Graph constructor. 
     * @param size is the number of nodes of the graph
     */
-	
 	public Graph(int size) {
 		super();	
 		adj = new Edge[size][size];
@@ -34,7 +33,6 @@ public class Graph implements Graphs {
     * @param node2 is the other node
     * @param weight is the weight of the edge
     */
-	
 	public void addEdge(int node1, int node2, double weight) {
 		
 		adj[node1-1][node2-1] = new Edge(node1, node2, weight);
