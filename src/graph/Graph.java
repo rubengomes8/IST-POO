@@ -1,113 +1,175 @@
 package graph;
 
-import java.util.LinkedList;
 
-public class Graph {
+/**
+ * Graph.java
+ * This is a model class to hold graph information
+ *
+ * @author John Mendonça, Manuel Domingues, Rúben Gomes
+ * @since 04-26-2019
+ */
+
+public class Graph implements Graphs {
 	
-	private Node[] graph;
+	private Edge[][] adj;
 	private int nNodes;
-	private int nestNode;
-	private LinkedList<Edge> graphEdges;
 	private int[] nEdge;
+	private double graphWeight;
 	
-	
-	public Graph(int size, int nested) {
-		super();
-		this.graph = new Node[size];
-		
-		for (int i = 0; i< size;i++) {
-			graph[i] = new Node(i+1); //graph[i] tem id i+1
-		}
-		
+	/**
+    * Graph constructor. 
+    * @param size is the number of nodes of the graph
+    */
+	public Graph(int size) {
+		super();	
+		adj = new Edge[size][size];
 		this.nNodes = size;
-		this.nestNode = nested;
-		this.graphEdges = new LinkedList<Edge>();
-		this.nEdge = new int[size+1]; // nEdge[0] tem número total de arestas nEdge[i] tem número de arestas do nó com o id i
-	}
-
-	public void buildGraph() {
-		// will store for each edge in the list the nodes corresponding to it
-		
-		// auxiliary iterator for the insertion of the edges in the adjacency array
-		int[] it = new int[nNodes];
-		Edge[][] adj= new Edge[nNodes][];
-		int[] aux;
-		// creates adjacency arrays to insert inside nodes
-		for (int i = 0; i < nNodes; i++) {
-			adj[i] = new Edge[nEdge[i+1]];
-		}
-		// builds adjacency array
-		for(Edge edge : graphEdges)
-        {
-		    aux = edge.getNodes();
-		    adj[aux[0]-1][it[aux[0]-1]] = edge;
-		    adj[aux[1]-1][it[aux[1]-1]] = edge;
-			it[aux[0]-1]++;
-			it[aux[1]-1]++;
-
-        }
-		// insert inside all nodes
-		for (int i = 0; i < nNodes ; i++) {			
-			graph[i].addAdjacency(adj[i]);
-			//graph[i].setnAdj(adj[i].length);
-		}
+		this.nEdge = new int[size+1];
 	}
 	
+	/**
+    * Adds an edge to the graph between two nodes with a given weight
+    * @param node1 is one of the nodes
+    * @param node2 is the other node
+    * @param weight is the weight of the edge
+    */
 	public void addEdge(int node1, int node2, double weight) {
 		
-		graphEdges.add(new Edge(node1, node2, weight));
+		adj[node1-1][node2-1] = new Edge(node1, node2, weight);
+		adj[node2-1][node1-1] = adj[node1-1][node2-1] ;
 		// updates edge counter
 		nEdge[node1]++;
 		nEdge[node2]++;
 		nEdge[0]++;
+		graphWeight+=weight;
 	}
 	
+	
+	/**
+    * Gets the total weight of the graph 
+    * @return a <code> double </code> specifying
+    * the weight of the graph
+    */
+	
+	public double getGraphWeight() {
+		return graphWeight;
+	}
+	
+	/**
+    * Gets the number of nodes of the graph
+    * @return an <code> int </code> specifying
+    * the number of nodes of the graph
+    */
+	
 	public int getSizeNodes() {
-
 		return nNodes;
 	}
+	
+	/**
+    * Gets the number of edges of the graph
+    * @return an <code> int </code> specifying
+    * the number of edges of the graph
+    */
 	
 	public int getSizeEdges() {
 		return nEdge[0];
 	}
 	
-	public Node getNode(int id) {
-
-		return graph[id-1];
-	}
-	@Override
-	public String toString() {
-		return "Graph [graph=" + graph + "]";
-	}
-
-	public int getnNodes() {
-		return nNodes;
-	}
+	/**
+    * Sets the number of nodes of the graph 
+    * @param nNodes is the number of nodes to be set
+    */
 
 	public void setnNodes(int nNodes) {
 		this.nNodes = nNodes;
 	}
-
-	public int getNestNode() {
-		return nestNode;
-	}
-
-	public void setNestNode(int nestNode) {
-		this.nestNode = nestNode;
-	}
-
-	public void setGraphEdges(LinkedList<Edge> graphEdges) {
-		this.graphEdges = graphEdges;
-	}
-
-	public Node[] getGraph() {
-		return graph;
-	}
-
-	public LinkedList<Edge> getGraphEdges() {
+	
+	/**
+    * Gets the weight of an edge between two nodes of the graph
+    * @param node1 is one of the two nodes
+    * @param node2 is the other node
+    * @return the value returned is a <code> double </code> specifying
+    * the weight of the edge
+    */
+	
+	public double getEdgeWeight(int node1, int node2) {
 		
-		return this.graphEdges;
+		if (adj[node1-1][node2-1] == null ) {
+			//TODO: throw exception
+			System.out.println("adjacency doesn't exist");
+			return -1;
+		}
+		else 
+			return adj[node1-1][node2-1].getWeight();
 	}
 	
+	/**
+    * Gets the level of pheromones of an edge between two nodes of the graph
+    * @param node1 is one of the two nodes
+    * @param node2 is the other node
+    * @return the value returned is a <code> double </code> specifying
+    * the level of pheromones of the edge
+    */
+	
+	public double getEdgePayload(int node1, int node2) {
+		if (adj[node1-1][node2-1] == null) {
+			//TODO: throw exception
+			System.out.println("adjacency doesn't exist");
+			return -1;
+		}
+		else
+			return adj[node1-1][node2-1].getPayload();
+	}
+	
+	/**
+    * Adds the level of pheromones of an edge between two nodes of the graph
+    * @param node1 is one of the two nodes
+    * @param node2 is the other node
+    * @param payload is the level of pheromones
+    */
+	
+	public void addEdgePayload(int node1, int node2, double payload) {
+		adj[node1-1][node2-1].addPayload(payload);
+	}
+	
+	/**
+    * Prints the edges linked to one node
+    * @param node is the node whose edges will be printed
+    * @return a String to be printed with the information of the edges.
+    */
+	
+	public String printEdges(int node) {
+		
+		StringBuilder txt = new StringBuilder();
+		for (int i = 0; i < nNodes; i++) {
+			if (adj[node][i] == null) continue;
+			txt.append((adj[node][i]) + " ");
+		}
+		return txt.toString();
+	}
+	
+	/**
+    * Gets the nodes that are adjacent to a given node
+    * @param node is the node of whose adjacent nodes will be returned
+    * @return an array of int with the nodes that are adjacent to the given node
+    */
+	
+	public int[] returnEdges(int node) {
+		
+		int[] ends;
+		int[] adjacents = new int[nEdge[node]];
+		int cnt = 0;
+		
+		for (int i = 0 ; i < nNodes;i++) {
+			if (adj[node-1][i] == null) continue;
+			
+			ends = adj[node-1][i].getNodes();
+			// one of the ends of the Edge is *node* !
+			adjacents[cnt] = (ends[0] == node ? ends[1]:ends[0]);
+			cnt++;
+		}
+		
+		return adjacents;
+	}
 }
 

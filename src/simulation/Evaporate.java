@@ -1,46 +1,93 @@
 package simulation;
 
-import graph.Edge;
 import pec.Event;
 
-import static utilities.Utilities.*;
+/**
+ * Evaporate.java
+ * This is a subclass of Event representing a evaporation of pheromones of an Edge.
+ *
+ * @author John Mendonça, Manuel Domingues, Rúben Gomes
+ * @since 04-26-2019
+ */
+
 
 public class Evaporate extends Event{
 
-	protected static float eta;
-	protected static float rho;
 	
-	Edge edge;
+	int node1;
+	int node2;
 	double pheromone;
 	Simulation sim;
+	
+	protected static float rho;
+	protected static float eta;
 
-	public Evaporate(Edge edge, Simulation sim) {
-		super(sim.getInst() + expRandom(eta));
-		this.edge = edge;
+	/**
+	    * Evaporation construtor. 
+	    * @param node1 is one extreme of the edge to be evaporated
+	    * @param node2 is another extreme of the edge to be evaporated
+	    * @param sim is the Simulation Object
+	    * @param time is the time at which the evaporiation has occured 
+	    */
+
+	
+	public Evaporate(int node1,int node2, Simulation sim, double time) {
+		super(time);
 		this.sim = sim;
+		this.node1 = node1;
+		this.node2 = node2;
 	}
 	
+	
+	/* *Execution of the Event Evaporate. Decreases the pheromone level of the Edge by rho units.
+	    * @return timestamp is the time at which this Event was triggered
+	    */
 	@Override
-	public void executeEvent() {
+	public double executeEvent() {
 		
-		edge.updatePaylod(-rho);
+		if ( sim.getGraph().getEdgePayload(node1, node2) < rho) {
+			sim.getGraph().addEdgePayload(node1, node2, -1 * sim.getGraph().getEdgePayload(node1, node2));
+		}
+		else
+			sim.getGraph().addEdgePayload(node1, node2, -rho);
 		sim.incrementEvapCounter();
 		
+		return this.timestamp;
 	}
 
-	public static float getEta() {
-		return eta;
-	}
-
-	public static void setEta(float eta) {
-		Evaporate.eta = eta;
-	}
-
+	/**
+    * Gets the rho parameter that defines the decrease size of the pheromone level in each evaporation.
+    * @return a <code> float </code> specifying
+    * the rho parameter
+    */
+	
 	public static float getRho() {
 		return rho;
 	}
 
+	/**
+    * Sets the rho parameter
+    * @param rho is the rho parameter to be set
+    */
 	public static void setRho(float rho) {
 		Evaporate.rho = rho;
+	}
+	
+	/**
+    * Gets the eta parameter that defines the time between evaporations.
+    * @return a <code> float </code> specifying
+    * the rho parameter
+    */
+	
+	public static float getEta() {
+		return eta;
+	}
+
+	/**
+    * Sets the eta parameter
+    * @param eta is the eta parameter to be set
+    */
+	public static void setEta(float eta) {
+		Evaporate.eta = eta;
 	}
 }

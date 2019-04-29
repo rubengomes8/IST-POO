@@ -7,20 +7,30 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.w3c.dom.Document;
 
-import graph.Graph;
 import parsing.SimulationParser;
-import pec.PEC;
+
+/**
+ * Run.java
+ * This is the main class.
+ *
+ * @author John Mendonça, Manuel Domingues, Rúben Gomes
+ * @since 04-26-2019
+ */
 
 public class Run {
 
+	/**
+    	* Verifies if the xml is given as an input argument. Begins the parsing of the xml and the simulation.
+   	*/
+	
 	public static void main(String[] args) {
-		
+			
 		if(args.length == 0)
 		{
 			System.out.println("Tem que ter o ficheiro xml de entrada");
 			System.exit(0);
 		}
-		
+		/*
 		SimulationParser simPars = new SimulationParser();
 		Simulation sim = new Simulation();
 		try
@@ -36,15 +46,14 @@ public class Run {
 		catch(Exception e)
 		{
 			e.printStackTrace();
-		}
+		}		*/
 		
-		System.out.println("\n\nCoisas a fazer nos próximos instantes:");
-		System.out.println("- a variavel nAdj na classe Node tem de ser alterada, não o estamos a fazer. ");
-		System.out.println("- a função buildGraph não está a criar corretamente, corrigir o bug ");
-			
-		
-		//sim.beginSimulation();
-		
+
+		Simulation sim = new Simulation();
+		SimulationParser simPars = new SimulationParser(args[0],sim);		
+		sim.beginSimulation();
+
+		System.exit(1);
 	}
 
 }

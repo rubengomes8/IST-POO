@@ -1,99 +1,133 @@
 package simulation;
 
-import graph.Edge;
-import graph.Graph;
-import graph.Node;
 import pec.Event;
+
 import static utilities.Utilities.*;
+
+/**
+ * AntMove.java
+ * This is a subclass of Event representing an Ant transverse between two adjacent nodes
+ *
+ * @author John Mendonça, Manuel Domingues, Rúben Gomes
+ * @since 04-26-2019
+ */
 
 
 public class AntMove extends Event{
 	
 	Ant ant;
-	Node next;
-	Graph graph;
 	Simulation sim;
-	private static float alpha;
-	private static float beta;
+	private int next;
+	
 	private static float delta;
 
-	public AntMove(Ant ant, Node move, Graph graph, Simulation sim) {
-		super(sim.getInst() + expRandom(delta * ant.path.getLast().getPayload(move.getID())) );
+	/**
+    * AntMove construtor
+    * @param ant is the ant that will transverse the edge
+    * @param move is the destination node
+    * @param sim is the Simulation Object
+    * @param time is the time at which the event AntMove has occured
+    */
+	
+	public AntMove(Ant ant, int move, Simulation sim, double time) {
+		super(time);
 		this.ant = ant;
 		this.next = move;
-		this.graph = graph;
 		this.sim = sim;
 	}
 	
-	public void executeEvent() {
+	/**
+    * Execution of the Event AntMove. Verifies if a hamiltonian cycle was found; 
+    * if not, verifies if an inner cycle was found and makes the needed instructions. 
+    * If not, inserts the node to the path.
+    * @return timestamp is the time at which this Event was triggered
+    */
+	
+	public double executeEvent() {
 		
-		if(next == ant.path.getStart()) {
-			// path is an Hamiltonian cycle
-			if (ant.path.isHamiltonian(graph)) {
-				sim.incrementMoveCounter();
-				ant.path.insertWaypoint(next);
-				//update best cycle
-				double cost = ant.path.getCost();
-				if (sim.getBestCost() > cost ) {
-					sim.replaceCycle(ant.path);
-				}
-				// insert pheromones
-				Node aux;
-				Edge eaux;
-				
-				do {
-					aux = ant.path.rollBack();
-					//TODO: change denominator with actual formula
-					eaux = ant.path.getLast().getAdjacents(aux.getID());
-					eaux.updatePaylod( (sim.getpLevel() * cost) / ( 1 )  );
-					
-					new Evaporate(eaux, sim);
-					
-				} while(ant.path.getLast() != next);
-				
-				ant.path.resetPath(next);
+		double time;
+		//if path is an Hamiltonian cycle
+		if(next == sim.getNest() && ant.getPath().getLength() == sim.getGraph().getSizeNodes()) {
+			sim.incrementMoveCounter();
+			ant.getPath().insertWaypoint(next);
+			//update best cycle
+			double cost = ant.getPath().getCost();
+			if (sim.getBestCost() > cost) {
+				sim.replaceCycle(ant.getPath());
 			}
-		}
-		else if (ant.path.findWaypoint(next) ) {
-			//inner cycle found, roll-back
-			while(ant.path.getLast() != next) {
-				ant.path.rollBack();
+			// insert pheromones
+			int aux1;
+			int aux2;
+			
+			do {
+				aux1 = ant.getPath().rollBack();
+				aux2 = ant.getPath().getLast();
+				
+				if(cost != 0)
+				{
+					sim.getGraph().addEdgePayload(aux1, aux2, sim.getpLevel() * sim.getGraph().getGraphWeight() / ( cost )  );
+				}
+				else
+				{
+					System.out.println("Error: Divisor <Cost of cycle> is equal to zero");
+				}
+			
+				time = this.timestamp + expRandom(Evaporate.getEta());
+				if (time <= sim.getFinalInst())
+					sim.getPec().addEvPEC(new Evaporate(aux1, aux2, sim, time));					
+			} while(ant.getPath().getLast() != next);
+				
+			ant.getPath().resetPath(next);
+		} //inner cycle found, roll-back
+		else if (ant.getPath().findWaypoint(next) ) {
+			while(ant.getPath().getLast() != next) {
+				ant.getPath().rollBack();
 			}
 			sim.incrementMoveCounter();
 		}
 		else {
-			ant.path.insertWaypoint(next);
+			ant.getPath().insertWaypoint(next);
 			sim.incrementMoveCounter();
 		}
+		// Schedule next move
+		int move = ant.chooseNext(ant.getPath(), sim.getGraph());
+		time = getTime(move);	
 		
-		//TODO: change null with appropriate first move
-		sim.pec.addEvPEC(new AntMove(ant, null ,graph, sim) );
+		if (time <= sim.getFinalInst()) 
+			sim.getPec().addEvPEC(new AntMove(ant, move, sim, time));
+		
+		return this.timestamp;
+	}
+	
+	/**
+    * Gets the time that the ant takes to traverse an edge between the two nodes
+    * @return a <code> double </code> specifying
+    * the time
+    */
+	
+	public double getTime(int move) {
+		
+		return this.timestamp + expRandom(delta *sim.getGraph().getEdgeWeight(ant.getPath().getLast(), move));
 	}
 
-	public static float getAlpha() {
-		return alpha;
-	}
-
-	public static void setAlpha(float alpha) {
-		AntMove.alpha = alpha;
-	}
-
-	public static float getBeta() {
-		return beta;
-	}
-
-	public static void setBeta(float beta) {
-		AntMove.beta = beta;
-	}
-
+	/**
+    * Gets the delta parameter that defines how many time an ant takes to traverse an edge
+    * @return a <code> float </code> specifying
+    * the delta parameter
+    */
+	
 	public static float getDelta() {
 		return delta;
 	}
 
+	
+	/**
+    * Sets the delta parameter
+    * @param delta is the delta parameter to be set
+    */
+	
 	public static void setDelta(float delta) {
 		AntMove.delta = delta;
 	}
-	
-	
 
 }
