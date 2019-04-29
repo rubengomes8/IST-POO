@@ -40,9 +40,13 @@ public class Observation extends Event{
 		System.out.println("	Number of move events: " + sim.getMoveCounter() );
 		System.out.println("	Number of evaporation events: " + sim.getEvapCounter() );
 		String aux = new String(sim.printBestCycle());
-		aux = "{" + aux.substring(1, aux.length()-1) + "}";
-		System.out.println("	Hamiltonian cycle: " + aux + "\n");
-		
+		if (aux.length() <= 1) {
+			System.out.println("	{ }");
+		}
+		else {
+			aux = "{" + aux.substring(1, aux.length()-1) + "}";
+			System.out.println("	Hamiltonian cycle: " + aux + "\n");
+		}
 		return this.timestamp;
 	}
 }
