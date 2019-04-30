@@ -1,0 +1,20 @@
+<simulation finalinst="300.0" antcolsize="200" plevel="0.5">
+<graph nbnodes="4" nestnode="1">
+<node nodeidx="1">
+<weight targetnode="2">3</weight>
+<weight targetnode="3">6</weight>
+</node>
+<node nodeidx="2">
+<weight targetnode="3">3</weight>
+</node>
+<node nodeidx="3">
+<weight targetnode="4">6</weight>
+</node>
+<node nodeidx="4">
+</node>
+</graph>
+<events>
+<move alpha="1.0" beta="1.0" delta="0.2"/>
+<evaporation eta="2.0" rho="10.0"/>
+</events>
+</simulation>
