@@ -55,7 +55,11 @@ public class Path implements Paths{
 			return;
 		}
 		// not adjacent
-		cost += graph.getEdgeWeight(path2.getLast(), waypoint);
+		try {
+			cost += graph.getEdgeWeight(path2.getLast(), waypoint);
+		} catch (NoEdgeException e) {
+			System.exit(-1);
+		}
 		path2.add(waypoint);
 	}
 	
@@ -70,7 +74,11 @@ public class Path implements Paths{
 		
 		int aux = path2.removeLast();
 	
-		cost = cost - graph.getEdgeWeight(aux, path2.getLast());
+		try {
+			cost = cost - graph.getEdgeWeight(aux, path2.getLast());
+		} catch (NoEdgeException e) {
+			System.exit(-1);
+		}
 		return aux;
 	}
 	

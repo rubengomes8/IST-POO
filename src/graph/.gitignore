@@ -4,3 +4,5 @@
 /Path.class
 /Graphs.class
 /Paths.class
+/NoEdgeException.class
+/NodeWithoutTwoEdgesException.class

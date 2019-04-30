@@ -21,11 +21,11 @@ public interface Graphs {
 	
 	public void setnNodes(int nNodes);
 	
-	public double getEdgeWeight(int node1, int node2);
+	public double getEdgeWeight(int node1, int node2) throws NoEdgeException;
 	
-	public double getEdgePayload(int node1, int node2);
+	public double getEdgePayload(int node1, int node2) throws NoEdgeException;
 	
-	public void addEdgePayload(int node1, int node2, double payload);
+	public void addEdgePayload(int node1, int node2, double payload) throws NoEdgeException;
 	
 	public String printEdges(int node);
 	

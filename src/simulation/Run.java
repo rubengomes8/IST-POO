@@ -1,12 +1,5 @@
 package simulation;
 
-import java.io.File;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
-import org.w3c.dom.Document;
-
 import parsing.SimulationParser;
 
 /**
@@ -27,28 +20,10 @@ public class Run {
 			
 		if(args.length == 0)
 		{
-			System.out.println("Tem que ter o ficheiro xml de entrada");
+			System.out.println("Missing xml file... Exiting...");
 			System.exit(0);
 		}
-		/*
-		SimulationParser simPars = new SimulationParser();
-		Simulation sim = new Simulation();
-		try
-		{
-			File xmlFile = new File(args[0]);
-			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder builder = factory.newDocumentBuilder();
-			Document doc = builder.parse(xmlFile);
-			doc.getDocumentElement().normalize();
-			
-			simPars.getSimulationParams(doc, sim);
-		} 
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}		*/
 		
-
 		Simulation sim = new Simulation();
 		SimulationParser simPars = new SimulationParser(args[0],sim);		
 		sim.beginSimulation();

@@ -13,6 +13,7 @@ import org.xml.sax.helpers.DefaultHandler;
 
 import graph.Graph;
 import graph.Graphs;
+import graph.NodeWithoutTwoEdgesException;
 import simulation.Ant;
 import simulation.AntMove;
 import simulation.Evaporate;
@@ -37,7 +38,13 @@ public class SimulationParser extends DefaultHandler {
 	{
 		this.xmlFileName = xmlFileName;
 		this.sim = sim;	
-		parseDocument();	
+		parseDocument();
+		try {
+			this.possibleHamiltonianCycle(graph);
+		}catch(NodeWithoutTwoEdgesException e) {
+			System.out.println(e);
+			System.exit(-1);
+		}
 		sim.setGraph(graph);
 	}
 
@@ -48,11 +55,14 @@ public class SimulationParser extends DefaultHandler {
             SAXParser parser = factory.newSAXParser();
             parser.parse(xmlFileName, this);
         } catch (ParserConfigurationException e) {
-            System.out.println("ParserConfig error");
+            System.out.println("ParserConfig error... Exiting...");
+            System.exit(-1);
         } catch (SAXException e) {
-            System.out.println("SAXException : xml not well formed");
+            System.out.println("SAXException : xml not well formed... Exiting...");
+            System.exit(-1);
         } catch (IOException e) {
-            System.out.println("IO error");
+            System.out.println("IO error... Exiting...");
+            System.exit(-1);
         }
 	}
 	
@@ -60,52 +70,138 @@ public class SimulationParser extends DefaultHandler {
     public void startElement(String s, String s1, String elementName, Attributes attributes) throws SAXException {
  
         if (elementName.equalsIgnoreCase("simulation")) {
-            sim.setFinalInst(Float.valueOf(attributes.getValue("finalinst")));
-            sim.setAntColSize(Integer.valueOf(attributes.getValue("antcolsize")));
-            sim.setpLevel(Float.valueOf(attributes.getValue("plevel")));
-            System.out.println("finalinst: " + sim.getFinalInst());
-    		System.out.println("antcolsize: " + sim.getAntColSize());
-    		System.out.println("plevel: " + sim.getpLevel());
+        	float auxf = Float.valueOf(attributes.getValue("finalinst"));
+        	if( auxf <= 0) {
+        		System.out.println("Final instant must be greater than zero. Exiting...");
+                System.exit(-1);
+        	}
+            sim.setFinalInst(auxf);
+            
+            int auxi = Integer.valueOf(attributes.getValue("antcolsize"));
+
+            if( auxf <= 0) {
+        		System.out.println("Ant colony size must be greater than zero. Exiting...");
+                System.exit(-1);
+        	}
+            sim.setAntColSize(auxi);
+            
+            
+            auxf = Float.valueOf(attributes.getValue("plevel"));
+            if( auxf <= 0) {
+        		System.out.println("Pheromone level must be greater than zero. Exiting...");
+                System.exit(-1);
+        	}
+            sim.setpLevel(auxf);
+            
+            //System.out.println("finalinst: " + sim.getFinalInst());
+    		//System.out.println("antcolsize: " + sim.getAntColSize());
+    		//System.out.println("plevel: " + sim.getpLevel());
     		
         }
         
         if (elementName.equalsIgnoreCase("move")) {
-    		Ant.setAlpha(Float.valueOf(attributes.getValue("alpha")));
-    		Ant.setBeta(Float.valueOf(attributes.getValue("beta")));
-    		AntMove.setDelta(Float.valueOf(attributes.getValue("delta")));
-    		System.out.println("alpha: " + Ant.getAlpha());
-    		System.out.println("beta: " + Ant.getBeta());
-    		System.out.println("delta: " + AntMove.getDelta());
+        	Float auxf = Float.valueOf(attributes.getValue("alpha"));
+    		Ant.setAlpha(auxf);
+    		
+    		if( auxf <= 0) {
+        		System.out.println("Alpha must be greater than zero. Exiting...");
+                System.exit(-1);
+        	}
+    		
+    		auxf = Float.valueOf(attributes.getValue("beta"));
+    		Ant.setBeta(auxf);
+    		
+    		if( auxf <= 0) {
+        		System.out.println("Beta must be greater than zero. Exiting...");
+                System.exit(-1);
+        	}
+    		
+    		auxf = Float.valueOf(attributes.getValue("delta"));
+    		AntMove.setDelta(auxf);
+    		
+    		if( auxf <= 0) {
+        		System.out.println("Delta must be greater than zero. Exiting...");
+                System.exit(-1);
+        	}
+    		
+    		
+    		
+    		//System.out.println("alpha: " + Ant.getAlpha());
+    		//System.out.println("beta: " + Ant.getBeta());
+    		//System.out.println("delta: " + AntMove.getDelta());
     		
         }
         
         if (elementName.equalsIgnoreCase("evaporation")) {
-    		Evaporate.setEta(Float.valueOf(attributes.getValue("eta")));
-    		Evaporate.setRho(Float.valueOf(attributes.getValue("rho")));
-    		System.out.println("eta: " + Evaporate.getEta());
-    		System.out.println("rho: " + Evaporate.getRho());
+        	
+        	float auxf = Float.valueOf(attributes.getValue("eta"));
+            		
+    		if( auxf <= 0) {
+        		System.out.println("Eta must be greater than zero. Exiting...");
+                System.exit(-1);
+    		}
+    		
+    		Evaporate.setEta(auxf);
+    		
+    		auxf = Float.valueOf(attributes.getValue("rho"));
+    		
+    		if( auxf <= 0) {
+        		System.out.println("Rho must be greater than zero. Exiting...");
+                System.exit(-1);
+    		}
+    		
+    		Evaporate.setRho(auxf);
+    		//System.out.println("eta: " + Evaporate.getEta());
+    		//System.out.print2---3.0---ln("rho: " + Evaporate.getRho());
     		
         }
         
         if(elementName.equalsIgnoreCase("graph"))
         {
         	int nbnodes = Integer.valueOf(attributes.getValue("nbnodes"));
-        	int nestnode = Integer.valueOf(attributes.getValue("nestnode"));
+        	
+        	if(nbnodes <= 1) {
+        		System.out.println("Number of nodes must be greater than 1. Exiting...");
+                System.exit(-1);
+        	}
+
         	graph = new Graph(nbnodes);
+        	
+        	
+        	int nestnode = Integer.valueOf(attributes.getValue("nestnode"));
+        	
+        	if(nestnode < 1 || nestnode > nbnodes)
+        	{
+        		System.out.println("Nest node must be between 1 and number of nodes. Exiting...");
+                System.exit(-1);
+        	}
         	sim.setNest(nestnode);
-        	System.out.println("nbnodes: " + nbnodes);
-        	System.out.println("nestnode: " + nestnode);
+        	//System.out.println("nbnodes: " + nbnodes);
+        	//System.out.println("nestnode: " + nestnode);
         }	
         
         if (elementName.equalsIgnoreCase("node")) {
-        	nodeidx = Integer.valueOf(attributes.getValue("nodeidx"));			
-			System.out.println("nodeidx: " + nodeidx);
+        	
+        	nodeidx = Integer.valueOf(attributes.getValue("nodeidx"));
+        	
+        	if(nodeidx < 1 || nodeidx > graph.getSizeNodes())
+        	{
+        		System.out.println("Node must be between 1 and number of nodes. Exiting...");
+                System.exit(-1);
+        	}
+			//System.out.println("nodeidx: " + nodeidx);
 		
         }
         
         if(elementName.equalsIgnoreCase("weight"))
         {
-        	target = Integer.valueOf(attributes.getValue("targetnode"));			
+        	target = Integer.valueOf(attributes.getValue("targetnode"));
+        	
+        	if(target < 1 || target > graph.getSizeNodes())
+        	{
+        		System.out.println("Target node must be between 1 and number of nodes. Exiting...");
+                System.exit(-1);
+        	}
         }
     }
 	
@@ -114,7 +210,7 @@ public class SimulationParser extends DefaultHandler {
         // if end of book element add to list
         if (element.equals("weight")) {
         	weight = Double.parseDouble(tmpValue);
-        	System.out.println("New edge: " + nodeidx + "---" + weight + "---" + target);
+        	//System.out.println("New edge: " + nodeidx + "---" + weight + "---" + target);
             graph.addEdge(nodeidx, target, weight);
         }
     }
@@ -123,5 +219,19 @@ public class SimulationParser extends DefaultHandler {
     public void characters(char[] ac, int i, int j) throws SAXException {
         tmpValue = new String(ac, i, j);
     }
+	
+	public void possibleHamiltonianCycle(Graphs graph) throws NodeWithoutTwoEdgesException
+	{
+		
+		int adj;
+		for(int i = 1; i <= graph.getSizeNodes(); i++)
+		{
+			adj = graph.returnEdges(i).length;
+			if(adj <= 1)
+				throw new NodeWithoutTwoEdgesException();
+			
+		}
+	}
+	
 	
 }

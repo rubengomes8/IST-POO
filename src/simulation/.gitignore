@@ -4,3 +4,5 @@
 /Evaporate.class
 /Run.class
 /Observation.class
+/Simulator.class
+/NextMoveNotFoundException.class

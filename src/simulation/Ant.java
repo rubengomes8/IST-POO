@@ -3,6 +3,7 @@ package simulation;
 import java.util.Random;
 
 import graph.Graphs;
+import graph.NoEdgeException;
 import graph.Path;
 import graph.Paths;
 
@@ -56,7 +57,7 @@ public class Ant {
     * the next node to be visited
     */
 	
-	public int chooseNext(Paths path, Graphs graph) {
+	public int chooseNext(Paths path, Graphs graph) throws NextMoveNotFoundException{
 		
 		Random r = new Random();
 		double f = r.nextDouble();
@@ -82,22 +83,39 @@ public class Ant {
 		}
 		if (!unvisited) {
 			//all adjacents have already been visited
-			double uniformBinEdge = 1.0 / j.length;
-			return j[(int)(f/uniformBinEdge)];					
+			if(j.length != 0)
+			{
+				double uniformBinEdge = 1.0 / j.length;
+				return j[(int)(f/uniformBinEdge)];	
+			}
+			else
+			{
+				System.out.println("One node has no adjacent nodes!");
+				System.exit(-1);
+				
+				return 0;
+			}
+							
 		}
 		else {
 			int i;
 			for (i = 0 ; i < j.length ; i++) {
 				if (!visited[i]) {
 					// calculates cij and sums ci
-					if((beta + graph.getEdgeWeight(cur, j[i])) != 0)
-					{
-						p[i] = (alpha + graph.getEdgePayload(cur,j[i]))/(beta + graph.getEdgeWeight(cur, j[i]));
-						ci+= p[i];
-					}
-					else
-					{
-						System.out.println("Error: Divisor <Beta + EdgeWeight> is equal to zero");
+					try {
+						if((beta + graph.getEdgeWeight(cur, j[i])) != 0)
+						{
+							p[i] = (alpha + graph.getEdgePayload(cur,j[i]))/(beta + graph.getEdgeWeight(cur, j[i]));
+							ci+= p[i];
+						}
+						else
+						{
+							System.out.println("Error: Divisor <Beta + EdgeWeight> is equal to zero");
+							System.exit(-1);
+						}
+					} catch (NoEdgeException e) {
+						System.out.println(e);
+						System.exit(-1);
 					}
 				}
 			}
@@ -112,7 +130,8 @@ public class Ant {
 					return j[i];
 			}
 			// sum of p likely < 1: exception here
-			return -1;
+			//TODO: throw exception Next node not found!
+			throw new NextMoveNotFoundException();
 		}
 	}
 	

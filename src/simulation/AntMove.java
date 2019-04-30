@@ -4,6 +4,8 @@ import pec.Event;
 
 import static utilities.Utilities.*;
 
+import graph.NoEdgeException;
+
 /**
  * AntMove.java
  * This is a subclass of Event representing an Ant transverse between two adjacent nodes
@@ -65,11 +67,17 @@ public class AntMove extends Event{
 				
 				if(cost != 0)
 				{
-					sim.getGraph().addEdgePayload(aux1, aux2, sim.getpLevel() * sim.getGraph().getGraphWeight() / ( cost )  );
+					try {
+						sim.getGraph().addEdgePayload(aux1, aux2, sim.getpLevel() * sim.getGraph().getGraphWeight() / ( cost )  );
+					} catch (NoEdgeException e) {
+						System.out.println(e);
+						System.exit(-1);
+					}
 				}
 				else
 				{
 					System.out.println("Error: Divisor <Cost of cycle> is equal to zero");
+					System.exit(-1);
 				}
 			
 				time = this.timestamp + expRandom(Evaporate.getEta());
@@ -90,12 +98,17 @@ public class AntMove extends Event{
 			sim.incrementMoveCounter();
 		}
 		// Schedule next move
-		int move = ant.chooseNext(ant.getPath(), sim.getGraph());
-		time = getTime(move);	
-		
-		if (time <= sim.getFinalInst()) 
-			sim.getPec().addEvPEC(new AntMove(ant, move, sim, time));
-		
+		int move;
+		try {
+			move = ant.chooseNext(ant.getPath(), sim.getGraph());
+			time = getTime(move);	
+			if (time <= sim.getFinalInst()) 
+				sim.getPec().addEvPEC(new AntMove(ant, move, sim, time));
+		} catch (NextMoveNotFoundException e) {
+			System.out.println(e);
+			System.exit(-1);
+		}
+	
 		return this.timestamp;
 	}
 	
@@ -106,8 +119,15 @@ public class AntMove extends Event{
     */
 	
 	public double getTime(int move) {
+		double time = 0;
+		try {
+			time = this.timestamp + expRandom(delta *sim.getGraph().getEdgeWeight(ant.getPath().getLast(), move));
+		} catch (NoEdgeException e) {
+			System.out.println(e);
+			System.exit(-1);
+		}
+		 return time;
 		
-		return this.timestamp + expRandom(delta *sim.getGraph().getEdgeWeight(ant.getPath().getLast(), move));
 	}
 
 	/**

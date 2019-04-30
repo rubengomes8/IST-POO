@@ -65,7 +65,7 @@ public class Graph implements Graphs {
 		return nNodes;
 	}
 	
-	/**
+	/**adj[i][j]
     * Gets the number of edges of the graph
     * @return an <code> int </code> specifying
     * the number of edges of the graph
@@ -92,15 +92,10 @@ public class Graph implements Graphs {
     * the weight of the edge
     */
 	
-	public double getEdgeWeight(int node1, int node2) {
+	public double getEdgeWeight(int node1, int node2) throws NoEdgeException{
 		
-		if (adj[node1-1][node2-1] == null ) {
-			//TODO: throw exception
-			System.out.println("adjacency doesn't exist");
-			return -1;
-		}
-		else 
-			return adj[node1-1][node2-1].getWeight();
+		if (adj[node1-1][node2-1] == null ) throw new NoEdgeException();
+		return adj[node1-1][node2-1].getWeight();
 	}
 	
 	/**
@@ -111,14 +106,12 @@ public class Graph implements Graphs {
     * the level of pheromones of the edge
     */
 	
-	public double getEdgePayload(int node1, int node2) {
-		if (adj[node1-1][node2-1] == null) {
-			//TODO: throw exception
-			System.out.println("adjacency doesn't exist");
-			return -1;
-		}
-		else
-			return adj[node1-1][node2-1].getPayload();
+	public double getEdgePayload(int node1, int node2) throws NoEdgeException{
+		
+	
+		if (adj[node1-1][node2-1] == null) throw new NoEdgeException();
+		return adj[node1-1][node2-1].getPayload();
+		
 	}
 	
 	/**
@@ -128,7 +121,9 @@ public class Graph implements Graphs {
     * @param payload is the level of pheromones
     */
 	
-	public void addEdgePayload(int node1, int node2, double payload) {
+	public void addEdgePayload(int node1, int node2, double payload) throws NoEdgeException{
+		
+		if(adj[node1-1][node2-1] == null) throw new NoEdgeException();
 		adj[node1-1][node2-1].addPayload(payload);
 	}
 	

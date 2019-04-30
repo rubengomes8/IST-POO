@@ -2,6 +2,7 @@ package simulation;
 
 
 import graph.Graphs;
+import graph.NoEdgeException;
 import graph.Path;
 import graph.Paths;
 import pec.PEC;
@@ -15,7 +16,7 @@ import static utilities.Utilities.*;
  * @since 04-26-2019
  */
 
-public class Simulation {
+public class Simulation implements Simulator {
 	
 	protected double finalInst;
 	protected int antColSize;
@@ -31,7 +32,7 @@ public class Simulation {
 	protected Graphs graph;
 	
 
-	/*
+	/**
 	* Begins the simulation.
 	* Initializes the variables. 
 	* Schedules observer events and first move events and starts executing the events contained in the pending event container.
@@ -57,11 +58,18 @@ public class Simulation {
 			// create all ants, put them all in the nest and schedule move
 			antColony[i] = new Ant(i, getNest(), graph);
 			
-			firstMove = antColony[i].chooseNext(antColony[i].getPath(), graph);
+			try {
+				firstMove = antColony[i].chooseNext(antColony[i].getPath(), graph);
+				times = expRandom(AntMove.getDelta() * graph.getEdgeWeight(antColony[i].getPath().getLast(), firstMove));
+				pec.addEvPEC(new AntMove(antColony[i],firstMove, this, times));
+			} catch (NoEdgeException e) {
+				System.out.println(e);
+				System.exit(-1);
+			} catch (NextMoveNotFoundException ex) {
+				System.out.println(ex);
+				System.exit(-1);
+			}
 			
-			times = expRandom(AntMove.getDelta() * graph.getEdgeWeight(antColony[i].getPath().getLast(), firstMove));
-			
-			pec.addEvPEC(new AntMove(antColony[i],firstMove, this, times));
 		}
 		
 		while(pec.queuePEC() > 0)

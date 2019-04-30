@@ -1,5 +1,6 @@
 package simulation;
 
+import graph.NoEdgeException;
 import pec.Event;
 
 /**
@@ -45,11 +46,15 @@ public class Evaporate extends Event{
 	@Override
 	public double executeEvent() {
 		
-		if ( sim.getGraph().getEdgePayload(node1, node2) < rho) {
-			sim.getGraph().addEdgePayload(node1, node2, -1 * sim.getGraph().getEdgePayload(node1, node2));
+		try {
+			if ( sim.getGraph().getEdgePayload(node1, node2) < rho) {
+				sim.getGraph().addEdgePayload(node1, node2, -1 * sim.getGraph().getEdgePayload(node1, node2));
+			}
+			else
+				sim.getGraph().addEdgePayload(node1, node2, -rho);
+		} catch (NoEdgeException e) {
+			System.exit(-1);
 		}
-		else
-			sim.getGraph().addEdgePayload(node1, node2, -rho);
 		sim.incrementEvapCounter();
 		
 		return this.timestamp;

@@ -47,7 +47,7 @@ public class Edge {
 	* Checks if a given node is an extreme of this Edge.
 	* @param id is the node identifier that we want to check
 	* @return a <code> boolean </code> specifying
-	* wether the node belongs or not to this Edge
+	* whether the node belongs or not to this Edge
 	*/
 
 	public boolean isEnd(int id) {
