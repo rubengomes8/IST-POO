@@ -31,7 +31,7 @@ with open(in_p,'r') as reader, open(out_p,'w') as writer:
     
     length = len(result) 
     i = 0
-    aux = "0"
+    aux = "1"
     print "writing to:", sys.argv[1], "..."
 
     while i < length:            
@@ -49,6 +49,7 @@ with open(in_p,'r') as reader, open(out_p,'w') as writer:
                 exit(-1)
             if len(result[i]) >= 3:
                 writer.write("  <graph nbnodes=\"" + result[i][1] + "\" nestnode=\"" + result[i][2] + "\">\n")
+                writer.write("      <node nodeidx=\"" + "1" + "\">\n")
                 graph = True
             else:
                 print "Insufficient Graph parameters"
@@ -56,9 +57,10 @@ with open(in_p,'r') as reader, open(out_p,'w') as writer:
             
         elif result[i][0] == 'move':
             if len(result[i]) >= 4:
-                writer.write("    </graph>\n")
-                writer.write("    <events>\n")
-                writer.write("        <move alpha=\"" + result[i][1] + "\" beta=\"" + result[i][2] + "\" delta=\"" + result[i][3] + "\"/>\n")
+                writer.write("      </node>\n")
+                writer.write("  </graph>\n")
+                writer.write("  <events>\n")
+                writer.write("          <move alpha=\"" + result[i][1] + "\" beta=\"" + result[i][2] + "\" delta=\"" + result[i][3] + "\"/>\n")
                 move = True
             else:
                 print "Insufficient event move parameters"
@@ -75,7 +77,7 @@ with open(in_p,'r') as reader, open(out_p,'w') as writer:
             else:
                 print "Insufficient event evaporation parameters"
                 exit(-1)
- 
+        
         elif result[i][0] == aux:
             if len(result[i]) < 3:
                 writer.write("          <weight targetnode=\"" + result[i][1] + "\">" + "1" + "</weight>\n")
