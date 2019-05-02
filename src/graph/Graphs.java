@@ -19,6 +19,8 @@ public interface Graphs {
 	
 	public int getSizeEdges();
 	
+	public int getSizeEdges(int node); 
+	
 	public void setnNodes(int nNodes);
 	
 	public double getEdgeWeight(int node1, int node2) throws NoEdgeException;

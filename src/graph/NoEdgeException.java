@@ -11,6 +11,11 @@ package graph;
 public class NoEdgeException extends Exception{
 
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public NoEdgeException()
 	{
 		super("Edge selected does not exist. Exiting...");

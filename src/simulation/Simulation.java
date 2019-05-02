@@ -5,6 +5,7 @@ import graph.Graphs;
 import graph.NoEdgeException;
 import graph.Path;
 import graph.Paths;
+import pec.PECs;
 import pec.PEC;
 import static utilities.Utilities.*;
 
@@ -16,19 +17,16 @@ import static utilities.Utilities.*;
  * @since 04-26-2019
  */
 
-public class Simulation implements Simulator {
+public class Simulation extends SimulatorAbs {
 	
 	protected double finalInst;
 	protected int antColSize;
 	protected double pLevel;
-	protected double instant;
 	protected int mevents;
 	protected int eevents;
 	protected int nest;
-
 	protected Ant[] antColony;	
 	protected Paths bestHamiltonianCycle;
-	protected PEC pec;
 	protected Graphs graph;
 	
 
@@ -38,6 +36,7 @@ public class Simulation implements Simulator {
 	* Schedules observer events and first move events and starts executing the events contained in the pending event container.
 	*/
 	
+	@Override
 	public void beginSimulation() {
 		
 		antColony = new Ant[antColSize];	
@@ -72,7 +71,7 @@ public class Simulation implements Simulator {
 			
 		}
 		
-		while(pec.queuePEC() > 0)
+		while(pec.sizePEC() > 0)
 			instant = pec.nextEvPEC().executeEvent();
 		return;
 	}
@@ -82,8 +81,8 @@ public class Simulation implements Simulator {
     * @return a <code> PEC </code> specifying
     * the pec.
     */
-	
-	public PEC getPec() {
+	@Override
+	public PECs getPec() {
 		return pec;
 	}
 
@@ -91,7 +90,8 @@ public class Simulation implements Simulator {
     * Sets the pending event container parameter
     * @param pec is the pending event container to be set
     */
-	public void setPec(PEC pec) {
+	@Override
+	public void setPec(PECs pec) {
 		this.pec = pec;
 	}
 
@@ -100,6 +100,7 @@ public class Simulation implements Simulator {
     * @return a <code> double </code> specifying
     * the current instant.
     */
+	@Override
 	public double getInst() {
 		return instant;
 	}
@@ -108,6 +109,7 @@ public class Simulation implements Simulator {
     * Sets the current instant of the simulation
     * @param instant is the current instant of the simulation to be set
     */
+	@Override
 	public void setInst(float instant) {
 		this.instant = instant;
 	}
@@ -149,6 +151,7 @@ public class Simulation implements Simulator {
     * @return a <code> double </code> specifying
     * the final instant
     */
+	@Override
 	public double getFinalInst() {
 		return finalInst;
 	}
@@ -157,6 +160,7 @@ public class Simulation implements Simulator {
     * Sets the final instant of the simulation
     * @param finalInst is the final instant of the simulation to be set
     */
+	@Override
 	public void setFinalInst(float finalInst) {
 		this.finalInst = finalInst;
 	}
@@ -166,6 +170,7 @@ public class Simulation implements Simulator {
     * @return a <code> int </code> specifying
     * the number of ants
     */
+	
 	public int getAntColSize() {
 		return antColSize;
 	}

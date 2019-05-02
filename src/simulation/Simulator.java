@@ -1,6 +1,6 @@
 package simulation;
 
-import pec.PEC;
+import pec.PECs;
 
 /**
  * 
@@ -12,12 +12,12 @@ import pec.PEC;
  */
 
 public interface Simulator {
-
+	
 	public void beginSimulation();
 	
-	public PEC getPec();
+	public PECs getPec();
 	
-	public void setPec(PEC pec);
+	public void setPec(PECs pec);
 	
 	public double getInst();
 

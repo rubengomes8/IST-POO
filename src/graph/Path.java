@@ -11,10 +11,9 @@ import java.util.LinkedList;
  * @since 04-26-2019
  */
 
-public class Path implements Paths{
+public class Path extends PathAbs{
 	
 	private LinkedList<Integer> path2 = new LinkedList<Integer>();
-	private double cost;
 	private Graphs graph;
 	
 	// Deep copy constructor 
@@ -46,6 +45,7 @@ public class Path implements Paths{
     * @param waypoint is an integer that identifies the node that we will add to the Path
     */
 	
+	@Override
 	public void insertWaypoint(int waypoint) {
 		
 		// Empty path
@@ -69,7 +69,7 @@ public class Path implements Paths{
     * @return a <code> integer </code> specifying
     * the node to be removed
     */
-	
+	@Override
 	public int rollBack() {
 		
 		int aux = path2.removeLast();
@@ -87,7 +87,7 @@ public class Path implements Paths{
     * @return a <code> integer </code> specifying
     * the first node
     */
-	
+	@Override
 	public int getStart() {
 		return path2.peekFirst();
 	}
@@ -97,7 +97,7 @@ public class Path implements Paths{
     * @return a <code> integer </code> specifying
     * the last node
     */
-	
+	@Override
 	public int getLast() {
 		return path2.peekLast();
 	}
@@ -108,7 +108,7 @@ public class Path implements Paths{
     * @return a <code> boolean </code> specifying
     * the if the waypoint exists in the path
     */
-	
+	@Override
 	public boolean findWaypoint(int waypoint) {
 		return path2.contains(waypoint);
 	}
@@ -118,36 +118,19 @@ public class Path implements Paths{
     * @return a <code> integer </code> specifying
     * the path size
     */
-	
+	@Override
 	public int getLength() {
 		return path2.size();
 	}
 	
-	/**
-    * Gets the total cost of the path
-    * @return a <code> double </code> specifying
-    * the path cost
-    */
-	
-	public double getCost() {
-		return cost;
-	}
-	
-	/**
-    * Sets the cost of the path
-    * @param cost is the cost to be set
-    */
 
-	public void setCost(double cost) {
-		this.cost = cost;
-	}
 	
 	/**
     * Gets the path description in <code> String </code> format if its length is greater than zero
     * @return a <code> String </code> specifying
     * the path
     */
-	
+	@Override
 	public String getPath() {
 		if (path2.size() > 0)
 			
@@ -159,7 +142,7 @@ public class Path implements Paths{
     * Clears the existing path and inserts a single waypoint to it
     * @param waypoint is the node inserted in the path after it is cleared
     */
-	
+	@Override
 	public void resetPath(int waypoint) {
 		
 		path2.clear();

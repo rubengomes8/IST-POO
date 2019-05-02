@@ -11,17 +11,16 @@ import java.util.PriorityQueue;
  * @since 04-26-2019
  */
 
-public class PEC {
+public class PEC extends PECAbs{
 	
 	PriorityQueue<Event> eventqueue;
-	double stop;
 	
 	
 	/**
     * Adds an evente to the priority queue of events
     * @param event is the event to add to the queue
     */
-		
+	@Override
 	public void addEvPEC(Event ev) {
 		eventqueue.add(ev);
 	}
@@ -30,7 +29,7 @@ public class PEC {
     * Gets the next event to be performed (the one with higher priority)
     * @return an <code> Event </code> 
     */
-	
+	@Override
 	public Event nextEvPEC() {
 		return eventqueue.poll();
 	}
@@ -40,7 +39,8 @@ public class PEC {
     * @return an <code> int </code> specifying
     * the size of the queue
     */
-	public int queuePEC() {
+	@Override
+	public int sizePEC() {
 		return eventqueue.size();
 	}
 

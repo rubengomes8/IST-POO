@@ -6,3 +6,5 @@
 /Paths.class
 /NoEdgeException.class
 /NodeWithoutTwoEdgesException.class
+/GraphAbs.class
+/PathAbs.class

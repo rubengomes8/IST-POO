@@ -212,6 +212,7 @@ public class SimulationParser extends DefaultHandler {
         	weight = Double.parseDouble(tmpValue);
         	//System.out.println("New edge: " + nodeidx + "---" + weight + "---" + target);
             graph.addEdge(nodeidx, target, weight);
+            //graph.addEdge(target, nodeidx, weight);
         }
     }
 	
@@ -223,11 +224,9 @@ public class SimulationParser extends DefaultHandler {
 	public void possibleHamiltonianCycle(Graphs graph) throws NodeWithoutTwoEdgesException
 	{
 		
-		int adj;
 		for(int i = 1; i <= graph.getSizeNodes(); i++)
 		{
-			adj = graph.returnEdges(i).length;
-			if(adj <= 1)
+			if(graph.getSizeEdges(i) <= 1 && graph.getSizeNodes() > 2)
 				throw new NodeWithoutTwoEdgesException();
 			
 		}

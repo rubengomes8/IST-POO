@@ -25,7 +25,7 @@ public class Run {
 		}
 		
 		Simulation sim = new Simulation();
-		SimulationParser simPars = new SimulationParser(args[0],sim);		
+		new SimulationParser(args[0],sim);		
 		sim.beginSimulation();
 
 		System.exit(1);

@@ -45,6 +45,7 @@ public class AntMove extends Event{
     * @return timestamp is the time at which this Event was triggered
     */
 	
+	@Override
 	public double executeEvent() {
 		
 		double time;
@@ -68,6 +69,12 @@ public class AntMove extends Event{
 				if(cost != 0)
 				{
 					try {
+						if(sim.getGraph().getEdgePayload(aux1, aux2) == 0)
+						{
+							time = this.timestamp + expRandom(Evaporate.getEta());
+							if (time <= sim.getFinalInst())
+								sim.getPec().addEvPEC(new Evaporate(aux1, aux2, sim, time));		
+						}
 						sim.getGraph().addEdgePayload(aux1, aux2, sim.getpLevel() * sim.getGraph().getGraphWeight() / ( cost )  );
 					} catch (NoEdgeException e) {
 						System.out.println(e);
@@ -80,9 +87,7 @@ public class AntMove extends Event{
 					System.exit(-1);
 				}
 			
-				time = this.timestamp + expRandom(Evaporate.getEta());
-				if (time <= sim.getFinalInst())
-					sim.getPec().addEvPEC(new Evaporate(aux1, aux2, sim, time));					
+							
 			} while(ant.getPath().getLast() != next);
 				
 			ant.getPath().resetPath(next);
