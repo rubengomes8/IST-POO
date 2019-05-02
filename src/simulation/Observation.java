@@ -3,7 +3,6 @@ package simulation;
 import pec.Event;
 
 /**
- * Observation.java
  * This is a subclass of Event responsible for monitorizing the simulation evolution
  *
  * @author John Mendonça, Manuel Domingues, Rúben Gomes

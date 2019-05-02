@@ -7,7 +7,6 @@ import static utilities.Utilities.*;
 import graph.NoEdgeException;
 
 /**
- * AntMove.java
  * This is a subclass of Event representing an Ant transverse between two adjacent nodes
  *
  * @author John Mendonça, Manuel Domingues, Rúben Gomes

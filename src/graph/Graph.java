@@ -2,8 +2,7 @@ package graph;
 
 
 /**
- * Graph.java
- * This is a model class to hold graph information
+ * This is a model class to hold graph information. It is a subclass of the abstract class GraphAbs
  *
  * @author John Mendonça, Manuel Domingues, Rúben Gomes
  * @since 04-26-2019
@@ -70,21 +69,14 @@ public class Graph extends GraphAbs {
 	
 	
 	/**
-    * Sets the number of nodes of the graph 
-    * @param nNodes is the number of nodes to be set
-    */
-	@Override
-	public void setnNodes(int nNodes) {
-		this.nNodes = nNodes;
-	}
-	
-	/**
     * Gets the weight of an edge between two nodes of the graph
     * @param node1 is one of the two nodes
     * @param node2 is the other node
+    * @throws NoEdgeException
     * @return the value returned is a <code> double </code> specifying
     * the weight of the edge
     */
+	
 	@Override
 	public double getEdgeWeight(int node1, int node2) throws NoEdgeException{
 		
@@ -96,6 +88,7 @@ public class Graph extends GraphAbs {
     * Gets the level of pheromones of an edge between two nodes of the graph
     * @param node1 is one of the two nodes
     * @param node2 is the other node
+    * @throws NoEdgeException
     * @return the value returned is a <code> double </code> specifying
     * the level of pheromones of the edge
     */

@@ -1,7 +1,6 @@
 package graph;
 
 /**
- * Edge.java
  * This is a model class to hold Edge information
  *
  * @author John Mendonça, Manuel Domingues, Rúben Gomes

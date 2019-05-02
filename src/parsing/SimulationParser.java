@@ -20,9 +20,10 @@ import simulation.Evaporate;
 import simulation.Simulation;
 
 /**
- * This is a class to get the parameters of the simulation from the input xml file
- *
+ * This is a class to get the parameters of the simulation from the input xml file.
+ * This is a subclass of DefaultHandler
  * @author John Mendonça, Manuel Domingues, Rúben Gomes
+ * @since 04-26-2019
  */
 
 public class SimulationParser extends DefaultHandler {
@@ -33,6 +34,12 @@ public class SimulationParser extends DefaultHandler {
 	double weight;
 	Graphs graph;
 	String tmpValue;
+	
+	/**
+	 * Parsing a xml file and store the information in variables. If it is detected that it is impossible to build a hamiltonian cycle, it aborts.
+	 * @param xmlFileName is the name of the xml file to be parsed
+	 * @param sim is the Simulation instance
+	 */
 	
 	public SimulationParser(String xmlFileName, Simulation sim) 
 	{
@@ -47,7 +54,10 @@ public class SimulationParser extends DefaultHandler {
 		}
 		sim.setGraph(graph);
 	}
-
+	
+	/**
+	 * Parsing the xml file if possible. Exit the program if some Exception occurs.
+	 */
 	private void parseDocument()
 	{
 		SAXParserFactory factory = SAXParserFactory.newInstance();
@@ -65,6 +75,12 @@ public class SimulationParser extends DefaultHandler {
             System.exit(-1);
         }
 	}
+	
+	
+	/**
+	 * Method invoked when the xml parser detects the beginning of an element. 
+	 * Validates and stores the parameters and if any parameter has an unexpected value, exits the program.
+	 */
 	
 	@Override
     public void startElement(String s, String s1, String elementName, Attributes attributes) throws SAXException {
@@ -205,22 +221,44 @@ public class SimulationParser extends DefaultHandler {
         }
     }
 	
+	/**
+	 * Method invoked when the xml parser detects the end of an element. 
+	 * Validates and stores the weight of an edge. Exits if the weight is not positive.
+	 */
+	
 	@Override
     public void endElement(String s, String s1, String element) throws SAXException {
         // if end of book element add to list
         if (element.equals("weight")) {
         	weight = Double.parseDouble(tmpValue);
-        	//System.out.println("New edge: " + nodeidx + "---" + weight + "---" + target);
-            graph.addEdge(nodeidx, target, weight);
+        	if(weight > 0)
+        	{
+        		//System.out.println("New edge: " + nodeidx + "---" + weight + "---" + target);
+                graph.addEdge(nodeidx, target, weight);
+        	}
+        	else
+        	{
+        		System.out.println("All edge weights must be positive! Exiting...");
+        		System.exit(-1);
+        	}
+        	
             
         }
     }
 	
+	/**
+	 * Obtains the value of an element to the String tmpValue.
+	 */
 	@Override
     public void characters(char[] ac, int i, int j) throws SAXException {
         tmpValue = new String(ac, i, j);
     }
 	
+	/**
+	 * Checks within a graph if there is at least one node that contains less than 2 adjacent nodes.
+	 * @param graph is the graph whose nodes are checked.
+	 * @throws NodeWithoutTwoEdgesException
+	 */
 	public void possibleHamiltonianCycle(Graphs graph) throws NodeWithoutTwoEdgesException
 	{
 		

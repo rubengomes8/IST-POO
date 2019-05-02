@@ -6,7 +6,6 @@ import graph.NoEdgeException;
 import pec.Event;
 
 /**
- * Evaporate.java
  * This is a subclass of Event representing a evaporation of pheromones of an Edge.
  *
  * @author John Mendonça, Manuel Domingues, Rúben Gomes

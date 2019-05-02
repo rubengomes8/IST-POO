@@ -4,8 +4,7 @@ import java.util.LinkedList;
 
 /**
  * 
- * Path.java
- * Class that implements the interface Paths
+ * Class that implements the extends the abstract class PathAbs
  * 
  * @author John Mendonça, Manuel Domingues, Rúben Gomes
  * @since 04-26-2019

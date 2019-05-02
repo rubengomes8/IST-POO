@@ -12,7 +12,7 @@ import static utilities.Utilities.*;
 /**
  * Simulation.java
  * This is a model class that holds the information about the simulation (parameters, ant colony, pending event container, graph...)
- *
+ * and is a subclass of the abstract class SimulatorAbs.java
  * @author John Mendonça, Manuel Domingues, Rúben Gomes
  * @since 04-26-2019
  */
@@ -110,7 +110,7 @@ public class Simulation extends SimulatorAbs {
     * @param instant is the current instant of the simulation to be set
     */
 	@Override
-	public void setInst(float instant) {
+	public void setInst(double instant) {
 		this.instant = instant;
 	}
 	
@@ -161,7 +161,7 @@ public class Simulation extends SimulatorAbs {
     * @param finalInst is the final instant of the simulation to be set
     */
 	@Override
-	public void setFinalInst(float finalInst) {
+	public void setFinalInst(double finalInst) {
 		this.finalInst = finalInst;
 	}
 	

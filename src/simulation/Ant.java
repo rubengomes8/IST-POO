@@ -9,7 +9,6 @@ import graph.Paths;
 
 
 /**
- * Ant.java
  * This is a model class to hold ant information
  *
  * @author John Mendonça, Manuel Domingues, Rúben Gomes
@@ -41,7 +40,7 @@ public class Ant {
 	
    /**
     * Gets the ant ID
-    * @return a <code> integer </code> specifying
+    * @return a <code> int </code> specifying
     * the ant ID
     */
 	
@@ -53,8 +52,8 @@ public class Ant {
     * Gets the next node to be visited.
     * @param path is the path traveled by the ant until the present instant
     * @param graph is the graph that describes the connection between all nodes
-    * @return a <code> int </code> specifying
-    * the next node to be visited
+    * @return a <code> int </code> specifying the next node to be visited
+    * @throws NextMoveNotFoundException
     */
 	
 	public int chooseNext(Paths path, Graphs graph) throws NextMoveNotFoundException{
@@ -130,7 +129,6 @@ public class Ant {
 					return j[i];
 			}
 			// sum of p likely < 1: exception here
-			//TODO: throw exception Next node not found!
 			throw new NextMoveNotFoundException();
 		}
 	}
