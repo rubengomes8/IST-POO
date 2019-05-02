@@ -212,7 +212,7 @@ public class SimulationParser extends DefaultHandler {
         	weight = Double.parseDouble(tmpValue);
         	//System.out.println("New edge: " + nodeidx + "---" + weight + "---" + target);
             graph.addEdge(nodeidx, target, weight);
-            //graph.addEdge(target, nodeidx, weight);
+            
         }
     }
 	
