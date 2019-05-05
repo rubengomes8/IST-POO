@@ -1,5 +1,6 @@
 import sys
 import os
+import random
 
 if len(sys.argv) < 3:
     print "Input and output filename required"
@@ -80,7 +81,7 @@ with open(in_p,'r') as reader, open(out_p,'w') as writer:
         
         elif result[i][0] == aux:
             if len(result[i]) < 3:
-                writer.write("          <weight targetnode=\"" + result[i][1] + "\">" + "1" + "</weight>\n")
+                writer.write("          <weight targetnode=\"" + result[i][1] + "\">" + str(random.randint(1,100)) + "</weight>\n")
             else:
                 writer.write("          <weight targetnode=\"" + result[i][1] + "\">" + result[i][2]  + "</weight>\n")
 
@@ -92,7 +93,7 @@ with open(in_p,'r') as reader, open(out_p,'w') as writer:
             writer.write("      </node>\n")
             writer.write("      <node nodeidx=\"" + result[i][0] + "\">\n")
             if len(result[i]) < 3:
-                writer.write("          <weight targetnode=\"" + result[i][1] + "\">" + "1" + "</weight>\n")
+                writer.write("          <weight targetnode=\"" + result[i][1] + "\">" + str(random.randint(1,100)) + "</weight>\n")
             else:
                 writer.write("          <weight targetnode=\"" + result[i][1] + "\">" + result[i][2]  + "</weight>\n")
         i += 1

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE simulation SYSTEM "simulation.dtd">
+<simulation finalinst="500.0" antcolsize="200" plevel="0.5">
+  <graph nbnodes="24" nestnode="1">
+      <node nodeidx="1">
+          <weight targetnode="2">1</weight>
+          <weight targetnode="9">1</weight>
+          <weight targetnode="8">1</weight>
+      </node>
+      <node nodeidx="2">
+          <weight targetnode="3">1</weight>
+          <weight targetnode="10">1</weight>
+      </node>
+      <node nodeidx="3">
+          <weight targetnode="10">1</weight>
+          <weight targetnode="4">1</weight>
+      </node>
+      <node nodeidx="4">
+          <weight targetnode="5">1</weight>
+          <weight targetnode="11">1</weight>
+      </node>
+      <node nodeidx="5">
+          <weight targetnode="6">1</weight>
+          <weight targetnode="11">1</weight>
+      </node>
+      <node nodeidx="6">
+          <weight targetnode="7">1</weight>
+          <weight targetnode="12">1</weight>
+      </node>
+      <node nodeidx="7">
+          <weight targetnode="8">1</weight>
+          <weight targetnode="12">1</weight>
+      </node>
+      <node nodeidx="8">
+          <weight targetnode="9">1</weight>
+      </node>
+      <node nodeidx="9">
+          <weight targetnode="13">1</weight>
+      </node>
+      <node nodeidx="10">
+          <weight targetnode="17">1</weight>
+      </node>
+      <node nodeidx="11">
+          <weight targetnode="20">1</weight>
+      </node>
+      <node nodeidx="12">
+          <weight targetnode="24">1</weight>
+      </node>
+      <node nodeidx="13">
+          <weight targetnode="14">1</weight>
+          <weight targetnode="15">1</weight>
+      </node>
+      <node nodeidx="14">
+          <weight targetnode="16">1</weight>
+      </node>
+      <node nodeidx="15">
+          <weight targetnode="23">1</weight>
+      </node>
+      <node nodeidx="16">
+          <weight targetnode="17">1</weight>
+          <weight targetnode="18">1</weight>
+      </node>
+      <node nodeidx="17">
+          <weight targetnode="18">1</weight>
+      </node>
+      <node nodeidx="18">
+          <weight targetnode="19">1</weight>
+      </node>
+      <node nodeidx="19">
+          <weight targetnode="20">1</weight>
+          <weight targetnode="21">1</weight>
+      </node>
+      <node nodeidx="20">
+          <weight targetnode="21">1</weight>
+      </node>
+      <node nodeidx="21">
+          <weight targetnode="22">1</weight>
+      </node>
+      <node nodeidx="22">
+          <weight targetnode="23">1</weight>
+          <weight targetnode="24">1</weight>
+      </node>
+      <node nodeidx="23">
+          <weight targetnode="24">1</weight>
+      </node>
+  </graph>
+  <events>
+          <move alpha="1.0" beta="1.0" delta="0.2"/>
+        <evaporation eta="2.0" rho="10.0"/>
+    </events>
+</simulation>
