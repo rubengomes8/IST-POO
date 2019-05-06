@@ -73,7 +73,7 @@ public class Graph extends GraphAbs {
     * Gets the weight of an edge between two nodes of the graph
     * @param node1 is one of the two nodes
     * @param node2 is the other node
-    * @throws NoEdgeException
+    * @throws NoEdgeException thrown when an Edge does not exist
     * @return the value returned is a <code> double </code> specifying
     * the weight of the edge
     */
@@ -89,7 +89,7 @@ public class Graph extends GraphAbs {
     * Gets the level of pheromones of an edge between two nodes of the graph
     * @param node1 is one of the two nodes
     * @param node2 is the other node
-    * @throws NoEdgeException
+    * @throws NoEdgeException thrown when an Edge does not exist
     * @return the value returned is a <code> double </code> specifying
     * the level of pheromones of the edge
     */

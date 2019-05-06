@@ -53,7 +53,7 @@ public class Ant {
     * @param path is the path traveled by the ant until the present instant
     * @param graph is the graph that describes the connection between all nodes
     * @return a <code> int </code> specifying the next node to be visited
-    * @throws NextMoveNotFoundException
+    * @throws NextMoveNotFoundException thrown when the next node is not found
     */
 	
 	public int chooseNext(Paths path, Graphs graph) throws NextMoveNotFoundException{
@@ -145,7 +145,7 @@ public class Ant {
 	
 	/**
     * Sets the alpha parameter
-    * @param beta is the alpha parameter to be set
+    * @param alpha is the alpha parameter to be set
     */
 
 	public static void setAlpha(float alpha) {

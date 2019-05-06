@@ -13,7 +13,8 @@ import parsing.SimulationParser;
 public class Run {
 
 	/**
-    	* Verifies if the xml is given as an input argument. Begins the parsing of the xml and the simulation.
+    * Verifies if the xml is given as an input argument. Begins the parsing of the xml and the simulation.
+    * @param args is an array of String with the input arguments
    	*/
 	
 	public static void main(String[] args) {

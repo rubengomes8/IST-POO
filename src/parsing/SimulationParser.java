@@ -257,7 +257,7 @@ public class SimulationParser extends DefaultHandler {
 	/**
 	 * Checks within a graph if there is at least one node that contains less than 2 adjacent nodes.
 	 * @param graph is the graph whose nodes are checked.
-	 * @throws NodeWithoutTwoEdgesException
+	 * @throws NodeWithoutTwoEdgesException thrown when a node of the graph contains less than 2 adjacent nodes
 	 */
 	public void possibleHamiltonianCycle(Graphs graph) throws NodeWithoutTwoEdgesException
 	{

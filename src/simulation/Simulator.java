@@ -55,7 +55,7 @@ public interface Simulator {
 	
 	/**
     * Sets the current instant of the simulation
-    * @param instant is the current instant to be set
+    * @param finalInst is the current instant to be set
     */
 	public void setFinalInst(double finalInst);
 	

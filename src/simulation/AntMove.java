@@ -118,6 +118,7 @@ public class AntMove extends Event{
 	
 	/**
     * Gets the time that the ant takes to traverse an edge between the two nodes
+    * @param move is the node identifier of the next node
     * @return a <code> double </code> specifying
     * the time
     */
