@@ -1,6 +1,7 @@
 package graph;
 
 /**
+ *
  * Exception to be thrown when a edge selected does not exist.
  *
  * @author John Mendonça, Manuel Domingues, Rúben Gomes

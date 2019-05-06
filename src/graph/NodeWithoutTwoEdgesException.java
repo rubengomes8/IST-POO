@@ -1,6 +1,7 @@
 package graph;
 
 /**
+ * 
  * Exception that should be raised when there is at least one node without 2 adjacent nodes at least.
  *
  * @author John Mendonça, Manuel Domingues, Rúben Gomes

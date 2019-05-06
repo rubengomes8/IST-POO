@@ -4,21 +4,21 @@ import java.util.PriorityQueue;
 
 
 /**
- * PEC.java
+ * 
  * This is a model class to hold the pending event container (PEC) information
  *
  * @author John Mendonça, Manuel Domingues, Rúben Gomes
  * @since 04-26-2019
  */
 
-public class PEC extends PECAbs{
+public class PEC implements PECs{
 	
 	PriorityQueue<Event> eventqueue;
 	
 	
 	/**
-    * Adds an evente to the priority queue of events
-    * @param event is the event to add to the queue
+    * Adds an event to the priority queue of events
+    * @param ev is the event to add to the queue
     */
 	@Override
 	public void addEvPEC(Event ev) {

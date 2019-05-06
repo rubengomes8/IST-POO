@@ -1,7 +1,6 @@
 package graph;
 
 /**
- * 
  * Interface class that describes path containing waypoints identified by integers
  * 
  * @author John Mendonça, Manuel Domingues, Rúben Gomes

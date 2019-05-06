@@ -2,6 +2,7 @@ package graph;
 
 
 /**
+ * 
  * This is a model class to hold graph information. It is a subclass of the abstract class GraphAbs
  *
  * @author John Mendonça, Manuel Domingues, Rúben Gomes
