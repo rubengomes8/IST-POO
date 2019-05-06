@@ -11,7 +11,7 @@ import java.util.Random;
 
 public class Utilities {
 	
-	static Random random = new Random();
+	private static Random random = new Random();
 	
 	/**
     * Adds an edge to the graph between two nodes with a given weight

@@ -16,8 +16,8 @@ import graph.NoEdgeException;
 
 public class AntMove extends Event{
 	
-	Ant ant;
-	Simulation sim;
+	private Ant ant;
+	private Simulation sim;
 	private int next;
 	
 	private static float delta;

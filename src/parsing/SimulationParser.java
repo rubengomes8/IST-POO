@@ -27,13 +27,13 @@ import simulation.Simulation;
  */
 
 public class SimulationParser extends DefaultHandler {
-	String xmlFileName;
-	Simulation sim = new Simulation();
-	int nodeidx;
-	int target;
-	double weight;
-	Graphs graph;
-	String tmpValue;
+	private String xmlFileName;
+	private Simulation sim = new Simulation();
+	private int nodeidx;
+	private int target;
+	private double weight;
+	private Graphs graph;
+	private String tmpValue;
 	
 	/**
 	 * Parsing a xml file and store the information in variables. If it is detected that it is impossible to build a hamiltonian cycle, it aborts.

@@ -16,10 +16,10 @@ import pec.Event;
 public class Evaporate extends Event{
 
 	
-	int node1;
-	int node2;
-	double pheromone;
-	Simulation sim;
+	private int node1;
+	private int node2;
+	protected double pheromone;
+	private Simulation sim;
 	
 	protected static float rho;
 	protected static float eta;

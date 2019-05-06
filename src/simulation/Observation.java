@@ -11,7 +11,7 @@ import pec.Event;
 
 public class Observation extends Event{
 	
-	Simulation sim;
+	private Simulation sim;
 	private int n;
 	
 	/**

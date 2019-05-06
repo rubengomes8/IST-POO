@@ -21,7 +21,7 @@ public class Ant {
 	private static float alpha;
 	private static float beta;
 	private int id;
-	Paths path;
+	private Paths path;
 	
 	
   /**

@@ -13,7 +13,7 @@ import java.util.PriorityQueue;
 
 public class PEC implements PECs{
 	
-	PriorityQueue<Event> eventqueue;
+	protected PriorityQueue<Event> eventqueue;
 	
 	
 	/**
