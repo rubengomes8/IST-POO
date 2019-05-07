@@ -6,7 +6,7 @@
   finalinst CDATA #REQUIRED
   plevel CDATA #REQUIRED>
 
-<!ELEMENT graph (node)+>
+<!ELEMENT graph (node+)>
 <!ATTLIST graph
   nbnodes CDATA #REQUIRED
   nestnode CDATA #REQUIRED>
@@ -14,7 +14,7 @@
 <!ELEMENT events (move,evaporation)>
 <!ATTLIST events>
 
-<!ELEMENT node (weight)*>
+<!ELEMENT node (weight*)>
 <!ATTLIST node
   nodeidx CDATA #REQUIRED>
 
