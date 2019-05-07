@@ -8,11 +8,12 @@ import java.util.PriorityQueue;
  * This is a model class to hold the pending event container (PEC) information
  *
  * @author John Mendonça, Manuel Domingues, Rúben Gomes
- * @since 04-26-2019
  */
 
 public class PEC implements PECs{
-	
+	/**
+	 * priority queue of events ordered by its timestamp
+	 */
 	protected PriorityQueue<Event> eventqueue;
 	
 	

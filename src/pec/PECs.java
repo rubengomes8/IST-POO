@@ -5,7 +5,6 @@ package pec;
  * Interface class that describes a PEC - pending event container
  * 
  * @author John Mendonça, Manuel Domingues, Rúben Gomes
- * @since 04-26-2019
  */
 
 

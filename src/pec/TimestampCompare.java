@@ -8,7 +8,6 @@ import java.util.Comparator;
  * 
  *
  * @author John Mendonça, Manuel Domingues, Rúben Gomes
- * @since 04-26-2019
  */
 
 class TimestampCompare implements Comparator<Event> {

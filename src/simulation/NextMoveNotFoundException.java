@@ -4,7 +4,6 @@ package simulation;
  * Exception that should be raised when the next node to go is not found in a graph.
  *
  * @author John Mendonça, Manuel Domingues, Rúben Gomes
- * @since 04-26-2019
  */
 
 public class NextMoveNotFoundException extends Exception{

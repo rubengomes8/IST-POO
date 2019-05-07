@@ -9,27 +9,38 @@ import pec.Event;
  * This is a subclass of Event representing a evaporation of pheromones of an Edge.
  *
  * @author John Mendonça, Manuel Domingues, Rúben Gomes
- * @since 04-26-2019
  */
 
 
 public class Evaporate extends Event{
 
-	
+	/**
+	 * node that defines an extreme of the edge to be evaporated
+	 */
 	private int node1;
+	/**
+	 * node that defines an extreme of the edge to be evaporated
+	 */
 	private int node2;
-	protected double pheromone;
+	/**
+	 * simulation associated to the program
+	 */
 	private Simulation sim;
-	
+	/**
+	 * parameter that defines the amount of pheromones evaporated
+	 */
 	protected static float rho;
+	/**
+	 * parameter that defines the time of the next evaporation
+	 */
 	protected static float eta;
 
 	/**
-	    * Evaporation construtor. 
+	    * Evaporation constructor. 
 	    * @param node1 is one extreme of the edge to be evaporated
 	    * @param node2 is another extreme of the edge to be evaporated
 	    * @param sim is the Simulation Object
-	    * @param time is the time at which the evaporiation has occured 
+	    * @param time is the time at which the evaporation has occured 
 	    */
 
 	

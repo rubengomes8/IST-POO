@@ -2,17 +2,27 @@ package graph;
 
 /**
  * 
- * This is a model class to hold Edge information
+ * This is a model class to hold Edge information. An edge is defined by 2 nodes.
  *
  * @author John Mendonça, Manuel Domingues, Rúben Gomes
- * @since 04-26-2019
  */
 
-public class Edge {
-	
-    private int node1;
+class Edge {
+	/**
+	 * 1st extreme node of the edge
+	 */
+    private int node1; 
+    /**
+	 * 2nd extreme node of the edge
+	 */
     private int node2;
+    /**
+	 * weight of the edge
+	 */
     private double weight;
+    /**
+	 * pheromones of the edge
+	 */
     private double payload;
     
 	/**
@@ -36,7 +46,7 @@ public class Edge {
    	 * with the node identifier in each position
   	 */
 
-	public int[] getNodes() {
+	int[] getNodes() {
 		int[] aux = new int[2];		
 		aux[0] = node1;
 		aux[1] = node2;
@@ -50,7 +60,7 @@ public class Edge {
 	* whether the node belongs or not to this Edge
 	*/
 
-	public boolean isEnd(int id) {
+	boolean isEnd(int id) {
 		
 		return ((id == node1 || id == node2) ? true : false);
 	}
@@ -61,7 +71,7 @@ public class Edge {
    	 * the weight of the edge.
   	 */
 	
-	public double getWeight() {
+	double getWeight() {
 		return weight;
 	}
 	
@@ -71,7 +81,7 @@ public class Edge {
    	 * the payload of the edge.
   	 */
 	
-	public double getPayload() {
+	double getPayload() {
 		return payload;
 	}
 	
@@ -80,7 +90,7 @@ public class Edge {
    	 * @param payload is the payload to be set
   	 */
 	
-	public void addPayload(double payload) {
+	void addPayload(double payload) {
 		this.payload+= payload;
 	}
 

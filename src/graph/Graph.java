@@ -6,12 +6,16 @@ package graph;
  * This is a model class to hold graph information. It is a subclass of the abstract class GraphAbs
  *
  * @author John Mendonça, Manuel Domingues, Rúben Gomes
- * @since 04-26-2019
  */
 
 public class Graph extends GraphAbs {
-	
+	/**
+	 * Edge matrix that defines the graph
+	 */
 	private Edge[][] adj;
+	/**
+	 * array that contains for each node the number of edges linked to it. In position 0 we have the total number of edges in the graph
+	 */
 	private int[] nEdge;
 	
 	/**

@@ -5,7 +5,6 @@ package graph;
  * Interface class that describes a graph composed by weighted edges and nodes
  * 
  * @author John Mendonça, Manuel Domingues, Rúben Gomes
- * @since 04-26-2019
  */
 
 public interface Graphs {

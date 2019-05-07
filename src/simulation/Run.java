@@ -7,7 +7,6 @@ import parsing.SimulationParser;
  * This is the main class.
  *
  * @author John Mendonça, Manuel Domingues, Rúben Gomes
- * @since 04-26-2019
  */
 
 public class Run {

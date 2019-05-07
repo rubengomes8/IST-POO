@@ -6,11 +6,12 @@ package pec;
  * This is an abstract class that holds the triggered time information about an Event
  *
  * @author John Mendonça, Manuel Domingues, Rúben Gomes
- * @since 04-26-2019
  */
 
 public abstract class Event {
-	
+	/**
+	 * time at which the event is triggered (removed from the pending event container)
+	 */
 	protected double timestamp;
 	
 	/**

@@ -7,7 +7,6 @@ import pec.PECs;
  * Interface class that describes a simulator 
  * 
  * @author John Mendonça, Manuel Domingues, Rúben Gomes
- * @since 04-26-2019
  */
 
 public interface Simulator {

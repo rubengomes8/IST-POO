@@ -7,12 +7,16 @@ import java.util.LinkedList;
  * Class that implements the extends the abstract class PathAbs
  * 
  * @author John Mendonça, Manuel Domingues, Rúben Gomes
- * @since 04-26-2019
  */
 
 public class Path extends PathAbs{
-	
+	/**
+	 * Linked list of integers that defines a sequence of nodes (a path)
+	 */
 	private LinkedList<Integer> path2 = new LinkedList<Integer>();
+	/**
+	 * Graph where Path belongs to.
+	 */
 	private Graphs graph;
 	
 	// Deep copy constructor 

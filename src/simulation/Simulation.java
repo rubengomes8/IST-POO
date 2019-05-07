@@ -14,19 +14,44 @@ import static utilities.Utilities.*;
  * This is a model class that holds the information about the simulation (parameters, ant colony, pending event container, graph...)
  * and is a subclass of the abstract class SimulatorAbs.java
  * @author John Mendonça, Manuel Domingues, Rúben Gomes
- * @since 04-26-2019
  */
 
 public class Simulation extends SimulatorAbs {
-	
+	/**
+	 * final instant of the simulation
+	 */
 	protected double finalInst;
+	/**
+	 * number of ants
+	 */
 	protected int antColSize;
+	/**
+	 * pheromone level to add to the edges belonging to a hamiltonian cycle found
+	 */
 	protected double pLevel;
+	/**
+	 * number of ant move events
+	 */
 	protected int mevents;
+	/**
+	 * number of ant evaporation events
+	 */
 	protected int eevents;
+	/**
+	 * id of the nest node of the graph
+	 */
 	protected int nest;
+	/**
+	 * array of the ants used in the simulation to perform the ant colony optimization
+	 */
 	protected Ant[] antColony;	
+	/**
+	 * best hamiltonian cycle found so far
+	 */
 	protected Paths bestHamiltonianCycle;
+	/**
+	 * graph used to find the best hamiltonian cycle
+	 */
 	protected Graphs graph;
 	
 

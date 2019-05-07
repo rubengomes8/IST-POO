@@ -6,12 +6,17 @@ package graph;
 * This is an abstract class that holds the generic information about a Graph (nNodes, graphWeight)
 * and implements the interface Graphs.java
 * @author John Mendonça, Manuel Domingues, Rúben Gomes
-* @since 04-26-2019
 */
 
 public abstract class GraphAbs implements Graphs{
 
+	/**
+	 * number of nodes in the graph
+	 */
 	protected int nNodes;
+	/**
+	 * total weight of the graph
+	 */
 	protected double graphWeight;
 	
 	/**

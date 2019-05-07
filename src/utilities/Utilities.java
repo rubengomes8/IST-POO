@@ -6,11 +6,13 @@ import java.util.Random;
  * This is a model class with auxiliar methods for calculating some values needed
  *
  * @author John Mendonça, Manuel Domingues, Rúben Gomes
- * @since 04-26-2019
  */
 
 public class Utilities {
 	
+	/**
+	 * field that contains a random value
+	 */
 	private static Random random = new Random();
 	
 	/**

@@ -6,16 +6,20 @@ import pec.Event;
  * This is a subclass of Event responsible for monitorizing the simulation evolution
  *
  * @author John Mendonça, Manuel Domingues, Rúben Gomes
- * @since 04-26-2019
  */
 
 public class Observation extends Event{
-	
+	/**
+	 * simulation associated to the program
+	 */
 	private Simulation sim;
+	/**
+	 * number of observation
+	 */
 	private int n;
 	
 	/**
-    * Observation construtor
+    * Observation constructor
     * @param n is an integer that defines the timestamp of the Event
     * @param sim is the simulation Object
     */

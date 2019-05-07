@@ -23,16 +23,36 @@ import simulation.Simulation;
  * This is a class to get the parameters of the simulation from the input xml file.
  * This is a subclass of DefaultHandler
  * @author John Mendonça, Manuel Domingues, Rúben Gomes
- * @since 04-26-2019
  */
 
 public class SimulationParser extends DefaultHandler {
+	/**
+	 * name of the xml file
+	 */
 	private String xmlFileName;
+	/**
+	 * simulation associated to the program
+	 */
 	private Simulation sim = new Simulation();
+	/**
+	 * index of the current node that we are analyzing in the xml file
+	 */
 	private int nodeidx;
+	/**
+	 * index of the target node that we are analyzing in the xml file
+	 */
 	private int target;
+	/**
+	 * weight between index and target nodes 
+	 */
 	private double weight;
+	/**
+	 * graph that is built with information from the xml file
+	 */
 	private Graphs graph;
+	/**
+	 * temporary value of an element in the xml file
+	 */
 	private String tmpValue;
 	
 	/**

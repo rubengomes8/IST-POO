@@ -5,7 +5,6 @@ package graph;
  * Exception to be thrown when a edge selected does not exist.
  *
  * @author John Mendonça, Manuel Domingues, Rúben Gomes
- * @since 04-26-2019
  */
 
 public class NoEdgeException extends Exception{

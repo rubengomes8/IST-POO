@@ -5,7 +5,6 @@ package graph;
  * Exception that should be raised when there is at least one node without 2 adjacent nodes at least.
  *
  * @author John Mendonça, Manuel Domingues, Rúben Gomes
- * @since 04-26-2019
  */
 public class NodeWithoutTwoEdgesException extends Exception{
 	

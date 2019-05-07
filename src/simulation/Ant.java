@@ -12,15 +12,26 @@ import graph.Paths;
  * This is a model class to hold ant information
  *
  * @author John Mendonça, Manuel Domingues, Rúben Gomes
- * @since 04-26-2019
  */
 
 
 public class Ant {
 	
+	/**
+	 * parameter used to define the probability of going between 2 nodes
+	 */
 	private static float alpha;
+	/**
+	 * parameter used to define the probability of going between 2 nodes
+	 */
 	private static float beta;
+	/**
+	 * unique identifier of the Ant
+	 */
 	private int id;
+	/**
+	 * path that the ant has done until the present instant
+	 */
 	private Paths path;
 	
 	

@@ -5,11 +5,13 @@ package graph;
 * This is an abstract class that holds the generic information about a Path (cost)
 * and implements the interface Paths.java
 * @author John Mendonça, Manuel Domingues, Rúben Gomes
-* @since 04-26-2019
 */
 
 public abstract class PathAbs implements Paths{
 
+	/**
+	 * Cost of the path that is the sum of the weight of the edges belonging to the path.
+	 */
 	protected double cost;
 	
 	

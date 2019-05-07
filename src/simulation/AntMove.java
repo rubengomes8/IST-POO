@@ -7,24 +7,34 @@ import static utilities.Utilities.*;
 import graph.NoEdgeException;
 
 /**
- * This is a subclass of Event representing an Ant transverse between two adjacent nodes
+ * This is a subclass of Event representing an Ant traverse between two adjacent nodes
  *
  * @author John Mendonça, Manuel Domingues, Rúben Gomes
- * @since 04-26-2019
  */
 
 
 public class AntMove extends Event{
 	
+	/**
+	 * ant that will move between 2 nodes
+	 */
 	private Ant ant;
+	/**
+	 * simulation associated to the program
+	 */
 	private Simulation sim;
+	/**
+	 * node to be visited
+	 */
 	private int next;
-	
+	/**
+	 * parameter that defines the time of a traversal
+	 */
 	private static float delta;
 
 	/**
-    * AntMove construtor
-    * @param ant is the ant that will transverse the edge
+    * AntMove constructor
+    * @param ant is the ant that will traverse the edge
     * @param move is the destination node
     * @param sim is the Simulation Object
     * @param time is the time at which the event AntMove has occured
